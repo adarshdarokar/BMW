@@ -7,15 +7,13 @@ export default function Preloader({ onComplete }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const animationRef = useRef(null);
 
-  // Total images: 25 main animation + 100 logo animation = 125
-  const mainFramesCount = 25;
+  // Logo frames only — animation frames are handled by ScrollFilmCanvas independently
   const logoFramesCount = 100;
-  const totalImages = mainFramesCount + logoFramesCount;
+  const totalImages = logoFramesCount;
 
   useEffect(() => {
     let loadedCount = 0;
     const cache = {
-      animation: [],
       logo: []
     };
 
@@ -24,16 +22,6 @@ export default function Preloader({ onComplete }) {
       const currentProgress = Math.round((loadedCount / totalImages) * 100);
       setProgress(currentProgress);
     };
-
-    // Preload main animation frames
-    for (let i = 1; i <= mainFramesCount; i++) {
-      const img = new Image();
-      const frameStr = String(i).padStart(3, '0');
-      img.src = `/bmw animation/ezgif-frame-${frameStr}.jpg`;
-      img.onload = imageLoaded;
-      img.onerror = imageLoaded; // count as loaded to prevent stuck screen
-      cache.animation.push(img);
-    }
 
     // Preload logo frames
     for (let i = 1; i <= logoFramesCount; i++) {

@@ -8,7 +8,6 @@ import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ScrollFilmCanvas from './components/ScrollFilmCanvas';
 import Specs from './components/Specs';
 import Footer from './components/Footer';
 
@@ -44,19 +43,8 @@ export default function App() {
     gsap.ticker.add(syncLenisWithGsap);
     gsap.ticker.lagSmoothing(0); // prevents framerate spikes or jumpy jumps
 
-    // Scroll progress bar logic for the canvas sidebar
-    const scrollIndicator = document.getElementById('scroll-bar-indicator');
-    const updateProgress = () => {
-      if (scrollIndicator) {
-        const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-        gsap.to(scrollIndicator, { scaleY: scrollPercent, duration: 0.1, ease: 'none' });
-      }
-    };
-    window.addEventListener('scroll', updateProgress);
-
     return () => {
       gsap.ticker.remove(syncLenisWithGsap);
-      window.removeEventListener('scroll', updateProgress);
       lenis.destroy();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -76,7 +64,6 @@ export default function App() {
           <CustomCursor />
           <Navbar />
           <Hero />
-          <ScrollFilmCanvas />
           <Specs />
           <Footer />
         </>
