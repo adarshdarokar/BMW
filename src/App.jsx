@@ -1,70 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
-
-// Component imports
-import Preloader from './components/Preloader';
-import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
+import Loader from './components/Loader';
 import Hero from './components/Hero';
-import Specs from './components/Specs';
+import LogoScroll from './components/LogoScroll';
+import Introduction from './components/Introduction';
+import LegacyTimeline from './components/LegacyTimeline';
+import Philosophy from './components/Philosophy';
+import Storytelling from './components/Storytelling';
+import CoreValues from './components/CoreValues';
+import Statistics from './components/Statistics';
+import FinalExperience from './components/FinalExperience';
 import Footer from './components/Footer';
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!loaded) return;
+    if (isLoading) return;
 
-    // Register ScrollTrigger globally
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Initialize smooth scrolling with Lenis
+    // Initialize Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth exponential deceleration
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.0,
+      wheelMultiplier: 1,
       touchMultiplier: 1.5,
+      infinite: false,
     });
 
-    // Synchronize GSAP ScrollTrigger with Lenis
-    lenis.on('scroll', () => {
-      ScrollTrigger.update();
-    });
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
-    // Feed Lenis frame ticks into GSAP's high-performance animation ticker
-    const syncLenisWithGsap = (time) => {
-      lenis.raf(time * 1000); // converts time seconds to milliseconds
-    };
-    gsap.ticker.add(syncLenisWithGsap);
-    gsap.ticker.lagSmoothing(0); // prevents framerate spikes or jumpy jumps
+    requestAnimationFrame(raf);
+
+    // Keep Lenis globally accessible (useful for triggering custom scroll events if needed)
+    window.lenis = lenis;
 
     return () => {
-      gsap.ticker.remove(syncLenisWithGsap);
       lenis.destroy();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      window.lenis = null;
     };
-  }, [loaded]);
+  }, [isLoading]);
 
   return (
-    <div className="relative w-full min-h-screen bg-bmw-dark overflow-x-hidden selection:bg-bmw-blue selection:text-white">
-      {/* Dynamic Noise Grain Overlay */}
-      <div className="noise-overlay" />
-
-      {/* Preloading Screen */}
-      <Preloader onComplete={() => setLoaded(true)} />
-
-      {/* Main Page Content (Revealed after loading completes) */}
-      {loaded && (
+    <div className="relative min-h-screen bg-bmw-black text-bmw-light overflow-x-hidden font-sans">
+      {isLoading ? (
+        <Loader onComplete={() => setIsLoading(false)} />
+      ) : (
         <>
-          <CustomCursor />
           <Navbar />
           <Hero />
-          <Specs />
+          <Introduction />
+          <LogoScroll />
+          <LegacyTimeline />
+          <Philosophy />
+          <Storytelling />
+          <CoreValues />
+          <Statistics />
+          <FinalExperience />
           <Footer />
         </>
       )}

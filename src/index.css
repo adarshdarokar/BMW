@@ -1,120 +1,147 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-@layer base {
-  :root {
-    --color-bmw-dark: #050505;
-    --color-bmw-deep: #0B0B0B;
-    --color-bmw-blue: #00A3FF;
-  }
-
-  html {
-    scroll-behavior: initial; /* Essential for Lenis smooth scroll */
-    background-color: var(--color-bmw-dark);
-    color: #ffffff;
-    font-family: 'Outfit', 'Inter', sans-serif;
-    overflow-x: hidden;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-bmw-dark);
-    color: #ffffff;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Custom cursor setup */
-  @media (pointer: fine) {
-    .custom-cursor-active,
-    .custom-cursor-active * {
-      cursor: none !important;
-    }
-  }
-
-  /* Custom thin scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #050505;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    transition: background 0.3s ease;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-bmw-blue);
-  }
+@theme {
+  --font-sans: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  
+  --color-bmw-black: #131313;
+  --color-bmw-dark: #1C1C1C;
+  --color-bmw-medium: #3C3C3C;
+  --color-bmw-gray: #696969;
+  --color-bmw-light-gray: #B5B5B5;
+  --color-bmw-light: #F3F3F3;
+  
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@layer components {
-  /* Ambient Lighting Effects */
-  .ambient-glow-blue {
-    background: radial-gradient(circle 600px at var(--x, 50%) var(--y, 50%), rgba(0, 163, 255, 0.08), transparent 80%);
-  }
-
-  .ambient-glow-white {
-    background: radial-gradient(circle 800px at 50% 50%, rgba(255, 255, 255, 0.03), transparent 70%);
-  }
-
-  /* Noise grain effect */
-  .noise-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    content: "";
-    opacity: 0.018;
-    pointer-events: none;
-    z-index: 9999;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0%200%20200%20200'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter%20id='noiseFilter'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.8'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  }
-
-  /* Glassmorphism utility */
-  .glass-card {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .glass-card-hover {
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .glass-card-hover:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(0, 163, 255, 0.2);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 
-                0 0 50px -10px rgba(0, 163, 255, 0.1);
-  }
-
-  /* Text Mask Reveal */
-  .mask-reveal {
-    overflow: hidden;
-    position: relative;
-  }
+/* Global Reset and Aesthetics */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Lenis smooth scroll adjustments */
+html, body {
+  background-color: #131313;
+  color: #F3F3F3;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Smooth Scrolling with Lenis */
 html.lenis, html.lenis body {
   height: auto;
 }
+
 .lenis-smooth {
   scroll-behavior: auto !important;
 }
+
 .lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
+
 .lenis-stopped {
   overflow: hidden;
 }
-.lenis-scrolling iframe {
-  pointer-events: none;
+
+/* Hide Scrollbar for ultra-minimal look while maintaining scroll */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #131313;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3C3C3C;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #696969;
+}
+
+/* Premium Typography Utilities */
+.text-stroke-thin {
+  -webkit-text-stroke: 1px rgba(243, 243, 243, 0.3);
+  color: transparent;
+}
+
+.text-stroke-medium {
+  -webkit-text-stroke: 1.5px rgba(243, 243, 243, 0.5);
+  color: transparent;
+}
+
+/* Glassmorphism Styles */
+.glass-nav {
+  background: rgba(19, 19, 19, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Performance Optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Custom Scroll Indicators */
+.scroll-indicator-line {
+  position: relative;
+  width: 1px;
+  height: 80px;
+  background: rgba(243, 243, 243, 0.15);
+  overflow: hidden;
+}
+
+.scroll-indicator-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #F3F3F3;
+  animation: scrollLine 2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+@keyframes scrollLine {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+/* Selection style */
+::selection {
+  background: #F3F3F3;
+  color: #131313;
 }
