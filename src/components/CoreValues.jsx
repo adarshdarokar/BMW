@@ -85,7 +85,7 @@ export default function CoreValues() {
         duration: 1.2,
         ease: 'power3.out'
       }, '-=0.5')
-      .to({}, { duration: 0.8 }); // Hold
+      .to({}, { duration: 0.4 }); // Hold
     });
 
     return () => {
@@ -97,7 +97,7 @@ export default function CoreValues() {
     <section
       ref={containerRef}
       id="core-values"
-      className="relative w-full h-[300vh] bg-bmw-black"
+      className="relative w-full h-[200vh] bg-bmw-black"
     >
       <div
         ref={pinRef}

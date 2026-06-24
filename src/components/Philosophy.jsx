@@ -80,7 +80,7 @@ export default function Philosophy() {
       duration: 1.5,
       ease: 'power3.out'
     })
-    .to({}, { duration: 1 }) // Hold
+    .to({}, { duration: 0.5 }) // Hold
     .to(getChars(text1Ref), {
       opacity: 0,
       scale: 0.85,
@@ -104,7 +104,7 @@ export default function Philosophy() {
       duration: 1.5,
       ease: 'power4.out'
     }, '-=0.2')
-    .to({}, { duration: 1 }) // Hold
+    .to({}, { duration: 0.5 }) // Hold
     .to(getChars(text2Ref), {
       opacity: 0,
       scale: 1.2,
@@ -128,7 +128,7 @@ export default function Philosophy() {
       duration: 1.5,
       ease: 'back.out(1.2)'
     }, '-=0.2')
-    .to({}, { duration: 1.5 }); // Hold final
+    .to({}, { duration: 0.7 }); // Hold final
 
     return () => {
       tl.kill();
@@ -139,7 +139,7 @@ export default function Philosophy() {
     <section
       ref={containerRef}
       id="philosophy"
-      className="relative w-full h-[350vh] bg-bmw-black"
+      className="relative w-full h-[200vh] bg-bmw-black"
     >
       <div
         ref={pinRef}

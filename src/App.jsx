@@ -55,8 +55,8 @@ export default function App() {
         <>
           <Navbar />
           <Hero />
-          <Introduction />
           <LogoScroll />
+          <Introduction />
           <LegacyTimeline />
           <Philosophy />
           <Storytelling />

@@ -136,7 +136,7 @@ export default function LegacyTimeline() {
       ref={containerRef}
       id="timeline"
       className="relative w-full"
-      style={{ height: '400vh' }}
+      style={{ height: '250vh' }}
     >
       <div
         ref={pinRef}

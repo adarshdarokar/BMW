@@ -138,7 +138,7 @@ export default function LogoScroll() {
       const imgHeight = img.naturalHeight || img.height || 800;
 
       // Centered scaling logic (70% of min viewport width or height limit)
-      const scale = Math.min(canvasWidth / imgWidth, canvasHeight / imgHeight) * 0.7;
+      const scale = Math.min(canvasWidth / imgWidth, canvasHeight / imgHeight) * 0.9;
 
       const drawWidth = imgWidth * scale;
       const drawHeight = imgHeight * scale;
@@ -163,6 +163,10 @@ export default function LogoScroll() {
       context.setTransform(1, 0, 0, 1, 0, 0);
       context.scale(dpr, dpr);
 
+      // Enable high-quality image smoothing for sharp frames
+      context.imageSmoothingEnabled = true;
+      context.imageSmoothingQuality = 'high';
+
       // Re-draw current frame immediately
       renderFrame(Math.round(frameObj.frame));
     };
@@ -183,7 +187,7 @@ export default function LogoScroll() {
         trigger: containerRef.current,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.2, // fine-tuned scrubbing inertia
+        scrub: 0.5, // cinematic scrubbing inertia
         pin: pinTargetRef.current,
         onUpdate: () => {
           renderFrame(Math.floor(frameObj.frame));
@@ -232,7 +236,7 @@ export default function LogoScroll() {
     <div
       ref={containerRef}
       id="logo-scroll"
-      className="relative w-full h-[250vh] bg-bmw-black"
+      className="relative w-full h-[200vh] bg-bmw-black"
     >
       <div
         ref={pinTargetRef}
@@ -250,7 +254,7 @@ export default function LogoScroll() {
             {/* The Frame Canvas */}
             <canvas
               ref={canvasRef}
-              className="w-full h-full max-h-[85vh] max-w-[85vw] relative z-10 block cursor-default"
+              className="w-full h-full relative z-10 block cursor-default"
             />
 
             {/* Text Overlay */}

@@ -16,10 +16,10 @@ export default function Storytelling() {
   const img2WrapperRef = useRef(null);
 
   useEffect(() => {
-    const parent = containerRef.current;
-    
+    const triggers = [];
+
     // Parallax on images
-    gsap.fromTo(img1Ref.current,
+    triggers.push(gsap.fromTo(img1Ref.current,
       { yPercent: -15 },
       {
         yPercent: 15,
@@ -31,9 +31,9 @@ export default function Storytelling() {
           scrub: true
         }
       }
-    );
+    ).scrollTrigger);
 
-    gsap.fromTo(img2Ref.current,
+    triggers.push(gsap.fromTo(img2Ref.current,
       { yPercent: -15 },
       {
         yPercent: 15,
@@ -45,15 +45,15 @@ export default function Storytelling() {
           scrub: true
         }
       }
-    );
+    ).scrollTrigger);
 
-    // Fade-in text indicators as they enter the screen
+    // Fade-in text as they enter the screen
     const textBlocks = [text1Ref.current, text2Ref.current];
     textBlocks.forEach((block) => {
       if (!block) return;
       const elements = block.querySelectorAll('.story-anim');
       
-      gsap.fromTo(elements,
+      triggers.push(gsap.fromTo(elements,
         { opacity: 0, y: 40 },
         {
           opacity: 1,
@@ -68,11 +68,11 @@ export default function Storytelling() {
             scrub: true
           }
         }
-      );
+      ).scrollTrigger);
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      triggers.forEach(t => t && t.kill());
     };
   }, []);
 
@@ -80,9 +80,9 @@ export default function Storytelling() {
     <section
       ref={containerRef}
       id="storytelling"
-      className="relative w-full bg-bmw-black py-24 md:py-48 px-6 md:px-12 overflow-hidden"
+      className="relative w-full bg-bmw-black py-12 md:py-20 px-6 md:px-12 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto flex flex-col space-y-36 md:space-y-64 relative z-10 select-none">
+      <div className="max-w-7xl mx-auto flex flex-col space-y-24 md:space-y-40 relative z-10 select-none">
         
         {/* Story 1: Exterior / Precision */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">

@@ -89,7 +89,7 @@ export default function Introduction() {
     });
 
     // Hold "Bayerische Motoren Werke"
-    tl.to({}, { duration: 1 });
+    tl.to({}, { duration: 0.5 });
 
     // 2. Transition: "Bayerische Motoren Werke" -> display:none and show LUXURY
     tl.to(getInners(bmvTextRef), {
@@ -110,7 +110,7 @@ export default function Introduction() {
       duration: 1.5,
       ease: 'power4.out'
     }, '-=0.2')
-    .to({}, { duration: 1 }); // Hold Luxury
+    .to({}, { duration: 0.5 }); // Hold Luxury
 
     // 3. Luxury -> Innovation
     tl.to(getInners(word1Ref), {
@@ -127,7 +127,7 @@ export default function Introduction() {
       duration: 1.5,
       ease: 'power4.out'
     }, '-=0.2')
-    .to({}, { duration: 1 }); // Hold Innovation
+    .to({}, { duration: 0.5 }); // Hold Innovation
 
     // 4. Innovation -> Performance
     tl.to(getInners(word2Ref), {
@@ -144,7 +144,7 @@ export default function Introduction() {
       duration: 1.5,
       ease: 'power4.out'
     }, '-=0.2')
-    .to({}, { duration: 1 }); // Hold Performance
+    .to({}, { duration: 0.5 }); // Hold Performance
 
     // 5. Performance -> Engineering
     tl.to(getInners(word3Ref), {
@@ -161,7 +161,7 @@ export default function Introduction() {
       duration: 1.5,
       ease: 'power4.out'
     }, '-=0.2')
-    .to({}, { duration: 1 }); // Hold Engineering
+    .to({}, { duration: 0.5 }); // Hold Engineering
 
     // 6. Engineering -> Precision
     tl.to(getInners(word4Ref), {
@@ -178,7 +178,7 @@ export default function Introduction() {
       duration: 1.5,
       ease: 'power4.out'
     }, '-=0.2')
-    .to({}, { duration: 1.5 }); // Hold Precision (longer hold)
+    .to({}, { duration: 0.7 }); // Hold Precision (slightly longer final hold)
 
     return () => {
       tl.kill();
@@ -189,7 +189,7 @@ export default function Introduction() {
     <section
       ref={containerRef}
       id="introduction"
-      className="relative w-full h-[500vh] bg-bmw-black"
+      className="relative w-full h-[180vh] bg-bmw-black"
     >
       <div
         ref={pinRef}
