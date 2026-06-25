@@ -40,12 +40,12 @@ export default function Navbar() {
       >
         <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 flex justify-between items-center h-full">
           
-          {/* Left: BMW Logo (Text-based for premium editorial feel) */}
+          {/* Left: BMW Logo */}
           <div 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="cursor-pointer font-sans font-medium text-sm text-[#F3F3F3] tracking-[0.2em] hover:opacity-70 transition-opacity duration-300 uppercase"
+            className="cursor-pointer hover:opacity-70 transition-opacity duration-300 flex items-center"
           >
-            BMW
+            <img src="/logo.jpg" alt="BMW Logo" className="h-[36px] md:h-[40px] w-auto object-contain" />
           </div>
 
           {/* Center: Empty to maintain minimal aesthetic */}
