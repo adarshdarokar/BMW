@@ -32,37 +32,37 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-in-out h-[80px] flex items-center ${
-          isScrolled 
-            ? 'bg-[#131313]/80 backdrop-blur-xl border-b border-[#F3F3F3]/5' 
-            : 'bg-transparent'
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 h-20 flex items-center transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isScrolled
+            ? "bg-[#131313]/70 backdrop-blur-2xl border-b border-white/5"
+            : "bg-transparent"
+          }`}
       >
-        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 flex justify-between items-center h-full">
-          
-          {/* Left: BMW Logo */}
-          <div 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="cursor-pointer hover:opacity-70 transition-opacity duration-300 flex items-center"
+        <div className="w-full max-w-[1440px] mx-auto h-full px-6 md:px-10 lg:px-14 xl:px-16 flex items-center justify-between">
+
+          {/* BMW Logo */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-center justify-center shrink-0 cursor-pointer transition-all duration-300 hover:opacity-80 hover:scale-105"
           >
-            <img src="/logo.jpg" alt="BMW Logo" className="h-[36px] md:h-[40px] w-auto object-contain" />
-          </div>
+            <img
+              src="/logo.jpg"
+              alt="BMW Logo"
+              className="h-9 w-9 md:h-10 md:w-10 rounded-full object-cover"
+            />
+          </button>
 
-          {/* Center: Empty to maintain minimal aesthetic */}
-          <div className="flex-1"></div>
+          {/* Menu */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="group relative flex items-center justify-center text-sm font-medium uppercase tracking-[0.18em] text-white transition-all duration-500 hover:-translate-y-[2px]"
+          >
+            <span className="opacity-80 transition-opacity duration-300 group-hover:opacity-100">
+              Menu
+            </span>
 
-          {/* Right: Menu Button */}
-          <div className="flex items-center">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="group relative flex flex-col items-center justify-center text-sm font-sans font-light text-[#F3F3F3] tracking-[0.1em] uppercase transition-all duration-500 hover:-translate-y-[2px] cursor-pointer"
-            >
-              <span className="opacity-70 group-hover:opacity-100 transition-opacity duration-500">
-                Menu
-              </span>
-              <span className="absolute bottom-[-6px] left-1/2 w-0 h-[1px] bg-[#F3F3F3] -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full"></span>
-            </button>
-          </div>
+            <span className="absolute -bottom-1 left-1/2 h-px w-0 -translate-x-1/2 bg-white transition-all duration-500 group-hover:w-full"></span>
+          </button>
+
         </div>
       </nav>
 
@@ -79,7 +79,7 @@ export default function Navbar() {
             {/* Close Button within the menu for intuitive UX */}
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute top-[30px] right-6 md:right-12 lg:right-24 text-sm font-sans font-medium text-[#F3F3F3] tracking-[0.2em] uppercase opacity-70 hover:opacity-100 transition-opacity duration-300"
+              className="absolute top-[30px] right-5 md:right-8 lg:right-12 text-sm font-sans font-medium text-[#F3F3F3] tracking-[0.2em] uppercase opacity-70 hover:opacity-100 transition-opacity duration-300"
             >
               CLOSE
             </button>
