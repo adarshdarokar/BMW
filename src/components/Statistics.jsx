@@ -29,7 +29,7 @@ export default function Statistics() {
       accel: 3.7,
       power: 601,
       range: 582,
-      duration: 2.5,
+      duration: 3.5,
       ease: 'power3.out',
       onUpdate: () => {
         setAccel(statsObj.accel.toFixed(1));
@@ -41,13 +41,13 @@ export default function Statistics() {
     // Fade in structural borders and text
     tl.fromTo(parent.querySelectorAll('.stat-border'),
       { scaleX: 0 },
-      { scaleX: 1, duration: 1.5, ease: 'power2.out', transformOrigin: 'left' },
+      { scaleX: 1, duration: 2.5, ease: 'power2.out', transformOrigin: 'left' },
       '0'
     );
 
     tl.fromTo(parent.querySelectorAll('.stat-label'),
       { opacity: 0, y: 15 },
-      { opacity: 0.5, y: 0, duration: 1, ease: 'power2.out', stagger: 0.15 },
+      { opacity: 0.5, y: 0, duration: 2.0, ease: 'power2.out', stagger: 0.2 },
       '0.5'
     );
 
@@ -60,10 +60,10 @@ export default function Statistics() {
     <section
       ref={containerRef}
       id="statistics"
-      className="relative w-full bg-bmw-black py-16 md:py-24 px-6 md:px-12"
+      className="relative w-full bg-[#131313] py-24 md:py-32 px-6 md:px-12 lg:px-24"
     >
-      <div className="max-w-7xl mx-auto select-none z-10 relative">
-        <span className="text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-bold mb-12 block text-center">
+      <div className="w-full max-w-[1440px] mx-auto select-none z-10 relative">
+        <span className="text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-medium mb-12 block text-center">
           ENGINEERING BENCHMARKS
         </span>
 
@@ -74,7 +74,7 @@ export default function Statistics() {
           <div className="flex flex-col items-center text-center px-4 relative">
             <div className="stat-border absolute top-0 left-0 w-full h-[1px] bg-bmw-medium/20" />
             <div className="pt-10 flex items-baseline">
-              <span className="text-7xl md:text-9xl font-light font-display text-bmw-light leading-none">
+              <span className="text-7xl md:text-9xl font-light font-sans text-bmw-light leading-none">
                 {accel}
               </span>
               <span className="text-xl md:text-2xl font-light text-bmw-light-gray ml-2">
@@ -90,7 +90,7 @@ export default function Statistics() {
           <div className="flex flex-col items-center text-center px-4 relative">
             <div className="stat-border absolute top-0 left-0 w-full h-[1px] bg-bmw-medium/20" />
             <div className="pt-10 flex items-baseline">
-              <span className="text-7xl md:text-9xl font-light font-display text-bmw-light leading-none">
+              <span className="text-7xl md:text-9xl font-light font-sans text-bmw-light leading-none">
                 {power}
               </span>
               <span className="text-xl md:text-2xl font-light text-bmw-light-gray ml-2">
@@ -106,7 +106,7 @@ export default function Statistics() {
           <div className="flex flex-col items-center text-center px-4 relative">
             <div className="stat-border absolute top-0 left-0 w-full h-[1px] bg-bmw-medium/20" />
             <div className="pt-10 flex items-baseline">
-              <span className="text-7xl md:text-9xl font-light font-display text-bmw-light leading-none">
+              <span className="text-7xl md:text-9xl font-light font-sans text-bmw-light leading-none">
                 {range}
               </span>
               <span className="text-xl md:text-2xl font-light text-bmw-light-gray ml-2">

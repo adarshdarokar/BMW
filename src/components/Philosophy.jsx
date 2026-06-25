@@ -51,8 +51,8 @@ export default function Philosophy() {
       scrollTrigger: {
         trigger: parent,
         start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
+        end: '+=150%',
+        scrub: 1.5,
         pin: pinRef.current,
       }
     });
@@ -139,35 +139,35 @@ export default function Philosophy() {
     <section
       ref={containerRef}
       id="philosophy"
-      className="relative w-full h-[200vh] bg-bmw-black"
+      className="relative w-full min-h-screen bg-[#131313]"
     >
       <div
         ref={pinRef}
         className="w-full h-screen sticky top-0 flex flex-col items-center justify-center overflow-hidden px-6"
       >
         {/* Abstract graphic elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] max-w-[700px] max-h-[700px] border border-bmw-medium/10 rounded-full pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[450px] max-h-[450px] border border-bmw-medium/5 rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] max-w-[700px] max-h-[700px] border border-[#F3F3F3]/10 rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[450px] max-h-[450px] border border-[#F3F3F3]/5 rounded-full pointer-events-none" />
 
-        <div className="w-full max-w-6xl mx-auto text-center flex flex-col items-center justify-center select-none relative z-10">
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 text-center flex flex-col items-center justify-center select-none relative z-10">
           
           <h2
             ref={text1Ref}
-            className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight font-display text-bmw-light leading-tight uppercase absolute w-full"
+            className="text-4xl sm:text-6xl md:text-8xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full"
           >
             DRIVEN BY PERFECTION
           </h2>
 
           <h2
             ref={text2Ref}
-            className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight font-display text-bmw-light leading-tight uppercase absolute w-full"
+            className="text-4xl sm:text-6xl md:text-8xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full"
           >
             ENGINEERED FOR EMOTION
           </h2>
 
           <h2
             ref={text3Ref}
-            className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight font-display text-bmw-light leading-tight uppercase absolute w-full text-stroke-medium"
+            className="text-4xl sm:text-6xl md:text-8xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full text-stroke-medium"
           >
             DESIGNED FOR THE FUTURE
           </h2>

@@ -66,8 +66,8 @@ export default function Introduction() {
       scrollTrigger: {
         trigger: parent,
         start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
+        end: '+=150%',
+        scrub: 1.5,
         pin: pinRef.current,
       }
     });
@@ -189,58 +189,58 @@ export default function Introduction() {
     <section
       ref={containerRef}
       id="introduction"
-      className="relative w-full h-[180vh] bg-bmw-black"
+      className="relative w-full min-h-screen bg-[#131313]"
     >
       <div
         ref={pinRef}
         className="w-full h-screen sticky top-0 flex items-center justify-center overflow-hidden"
       >
         {/* Subtle radial glow to draw focus to center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[500px] max-h-[500px] rounded-full bg-radial from-bmw-medium/5 to-transparent pointer-events-none filter blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] max-w-[500px] max-h-[500px] rounded-full bg-radial from-[#F3F3F3]/5 to-transparent pointer-events-none filter blur-3xl" />
 
         <div
           ref={titleContainerRef}
-          className="w-full max-w-7xl px-8 text-center select-none"
+          className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 text-center select-none"
         >
           {/* Main sequence displays */}
           <h2
             ref={bmvTextRef}
-            className="text-3xl sm:text-5xl md:text-7xl font-light tracking-[0.2em] font-display text-bmw-light leading-snug"
+            className="text-3xl sm:text-5xl md:text-7xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-snug"
           >
             BAYERISCHE MOTOREN WERKE
           </h2>
 
           <h2
             ref={word1Ref}
-            className="text-5xl sm:text-7xl md:text-9xl font-semibold tracking-[0.3em] font-display text-bmw-light mr-[-0.3em] uppercase leading-none"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             LUXURY
           </h2>
 
           <h2
             ref={word2Ref}
-            className="text-5xl sm:text-7xl md:text-9xl font-semibold tracking-[0.2em] font-display text-bmw-light mr-[-0.2em] uppercase leading-none"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             INNOVATION
           </h2>
 
           <h2
             ref={word3Ref}
-            className="text-5xl sm:text-7xl md:text-9xl font-semibold tracking-[0.15em] font-display text-bmw-light mr-[-0.15em] uppercase leading-none"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.15em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             PERFORMANCE
           </h2>
 
           <h2
             ref={word4Ref}
-            className="text-5xl sm:text-7xl md:text-9xl font-semibold tracking-[0.25em] font-display text-bmw-light mr-[-0.25em] uppercase leading-none"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.25em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             ENGINEERING
           </h2>
 
           <h2
             ref={word5Ref}
-            className="text-5xl sm:text-7xl md:text-9xl font-semibold tracking-[0.3em] font-display text-bmw-light mr-[-0.3em] uppercase leading-none text-stroke-medium"
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none text-stroke-medium"
           >
             PRECISION
           </h2>

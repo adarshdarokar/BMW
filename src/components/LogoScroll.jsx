@@ -137,8 +137,8 @@ export default function LogoScroll() {
       const imgWidth = img.naturalWidth || img.width || 800;
       const imgHeight = img.naturalHeight || img.height || 800;
 
-      // Centered scaling logic (70% of min viewport width or height limit)
-      const scale = Math.min(canvasWidth / imgWidth, canvasHeight / imgHeight) * 0.9;
+      // Centered scaling logic (contain perfectly within the new cinematic box)
+      const scale = Math.min(canvasWidth / imgWidth, canvasHeight / imgHeight) * 1.0;
 
       const drawWidth = imgWidth * scale;
       const drawHeight = imgHeight * scale;
@@ -186,8 +186,8 @@ export default function LogoScroll() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.5, // cinematic scrubbing inertia
+        end: '+=150%',
+        scrub: 1.5, // cinematic scrubbing inertia
         pin: pinTargetRef.current,
         onUpdate: () => {
           renderFrame(Math.floor(frameObj.frame));
@@ -201,7 +201,7 @@ export default function LogoScroll() {
         trigger: containerRef.current,
         start: 'top 20%',
         end: 'bottom 80%',
-        scrub: true,
+        scrub: 1.5,
       },
     });
 
@@ -236,38 +236,42 @@ export default function LogoScroll() {
     <div
       ref={containerRef}
       id="logo-scroll"
-      className="relative w-full h-[200vh] bg-bmw-black"
+      className="relative w-full min-h-screen bg-[#131313]"
     >
       <div
         ref={pinTargetRef}
-        className="w-full h-screen flex flex-col items-center justify-center overflow-hidden"
+        className="w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-[#131313]"
       >
-        {/* Cinematic Backdrop glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[600px] max-h-[600px] rounded-full bg-radial from-bmw-medium/10 to-transparent pointer-events-none filter blur-3xl z-0" />
+        {/* The Cinematic Content Container */}
+        <div className="relative w-[90vw] md:w-[70vw] h-[60vh] md:h-[80vh] max-w-[1400px] flex items-center justify-center">
+          
+          {/* Cinematic Backdrop glow (contained within the container) */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full bg-radial from-[#F3F3F3]/5 to-transparent pointer-events-none filter blur-[80px] z-0" />
 
-        {!framesLoaded ? (
-          <div className="z-10 text-bmw-light-gray font-mono text-xs uppercase tracking-widest animate-pulse">
-            Initializing Sequence...
-          </div>
-        ) : (
-          <>
-            {/* The Frame Canvas */}
-            <canvas
-              ref={canvasRef}
-              className="w-full h-full relative z-10 block cursor-default"
-            />
-
-            {/* Text Overlay */}
-            <div
-              ref={overlayRef}
-              className="absolute bottom-16 z-20 text-center select-none"
-            >
-              <h2 className="text-xs uppercase tracking-[0.6em] text-bmw-light-gray font-light font-display">
-                A SYMBOL OF ENGINEERING TRIUMPH
-              </h2>
+          {!framesLoaded ? (
+            <div className="z-10 text-[#B5B5B5] font-mono text-[10px] uppercase tracking-[0.2em] animate-pulse">
+              Initializing Sequence...
             </div>
-          </>
-        )}
+          ) : (
+            <>
+              {/* The Frame Canvas */}
+              <canvas
+                ref={canvasRef}
+                className="w-full h-full relative z-10 block cursor-default"
+              />
+            </>
+          )}
+        </div>
+
+        {/* Text Overlay */}
+        <div
+          ref={overlayRef}
+          className="absolute bottom-12 md:bottom-16 z-20 text-center select-none w-full opacity-0"
+        >
+          <h2 className="text-[10px] uppercase tracking-[0.4em] md:tracking-[0.6em] text-[#B5B5B5] font-light font-sans">
+            A SYMBOL OF ENGINEERING TRIUMPH
+          </h2>
+        </div>
       </div>
     </div>
   );

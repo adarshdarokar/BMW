@@ -72,7 +72,7 @@ export default function LegacyTimeline() {
         trigger: parent,
         start: 'top top',
         end: () => `+=${scrollContainer.offsetWidth - window.innerWidth}`,
-        scrub: true,
+        scrub: 1.5,
         pin: pinRef.current,
         invalidateOnRefresh: true,
       }
@@ -98,7 +98,7 @@ export default function LegacyTimeline() {
           containerAnimation: scrollTl,
           start: 'right center',
           end: 'right left',
-          scrub: true,
+          scrub: 1.5,
         }
       });
     });
@@ -120,7 +120,7 @@ export default function LegacyTimeline() {
             containerAnimation: scrollTl,
             start: 'left 60%',
             end: 'left 20%',
-            scrub: true,
+            scrub: 1.5,
           }
         }
       );
@@ -135,8 +135,7 @@ export default function LegacyTimeline() {
     <section
       ref={containerRef}
       id="timeline"
-      className="relative w-full"
-      style={{ height: '250vh' }}
+      className="relative w-full min-h-screen"
     >
       <div
         ref={pinRef}
@@ -159,12 +158,12 @@ export default function LegacyTimeline() {
           {milestones.map((m, idx) => (
             <div
               key={idx}
-              className="timeline-panel w-screen h-full flex items-center px-8 md:px-24 py-16 flex-shrink-0 select-none"
+              className="timeline-panel w-screen h-full flex items-center px-6 md:px-12 lg:px-24 flex-shrink-0 select-none"
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full max-w-7xl mx-auto items-center">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full max-w-[1440px] mx-auto items-center">
                 {/* Large Year Column */}
                 <div className="md:col-span-5 flex flex-col justify-center">
-                  <span className={`timeline-anim-element text-8xl md:text-[10rem] font-light font-display tracking-tighter leading-none ${m.textColor}`}>
+                  <span className={`timeline-anim-element text-8xl md:text-8xl lg:text-9xl font-light font-sans tracking-tighter leading-none ${m.textColor}`}>
                     {m.year}
                   </span>
                   <div className={`timeline-anim-element w-24 h-[1px] my-6 ${idx === 4 ? 'bg-bmw-black' : 'bg-bmw-light-gray'} opacity-50`} />
@@ -172,10 +171,10 @@ export default function LegacyTimeline() {
 
                 {/* Info details column */}
                 <div className="md:col-span-7 flex flex-col justify-center pr-0 md:pr-12">
-                  <span className={`timeline-anim-element text-[10px] tracking-[0.4em] font-bold uppercase mb-2 ${m.muteColor}`}>
+                  <span className={`timeline-anim-element text-[10px] tracking-[0.4em] font-medium uppercase mb-2 ${m.muteColor}`}>
                     {m.title}
                   </span>
-                  <h3 className={`timeline-anim-element text-2xl md:text-4xl font-light font-display leading-tight mb-6 ${m.textColor}`}>
+                  <h3 className={`timeline-anim-element text-2xl md:text-4xl font-light font-sans leading-tight mb-6 ${m.textColor}`}>
                     {m.subtitle}
                   </h3>
                   <p className={`timeline-anim-element text-sm sm:text-base font-light leading-relaxed max-w-xl ${m.muteColor}`}>

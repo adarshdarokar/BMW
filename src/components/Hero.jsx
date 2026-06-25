@@ -15,39 +15,39 @@ export default function Hero() {
     tl.fromTo(
       containerRef.current,
       { opacity: 0 },
-      { opacity: 1, duration: 1.5, ease: 'power2.out' }
+      { opacity: 1, duration: 2.5, ease: 'power2.out' }
     );
 
     tl.fromTo(
       titleRef.current,
-      { opacity: 0, y: 50, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.8, ease: 'power4.out' },
-      '-=0.8'
+      { opacity: 0, y: 60, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 2.5, ease: 'power4.out' },
+      '-=1.5'
     );
 
     tl.fromTo(
       subtitleRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 0.6, y: 0, duration: 1.2, ease: 'power3.out' },
-      '-=1.2'
+      { opacity: 0, y: 30 },
+      { opacity: 0.8, y: 0, duration: 2.0, ease: 'power3.out' },
+      '-=1.8'
     );
 
     tl.fromTo(
       lineRef.current,
       { opacity: 0, scaleY: 0 },
-      { opacity: 1, scaleY: 1, duration: 1.2, transformOrigin: 'top', ease: 'power3.out' },
-      '-=0.8'
+      { opacity: 1, scaleY: 1, duration: 1.5, transformOrigin: 'top', ease: 'power3.out' },
+      '-=1.2'
     );
 
     // Subtle parallax effect on video and elements on scroll
     gsap.to(videoRef.current, {
-      yPercent: 15,
+      yPercent: 30,
       ease: 'none',
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
         end: 'bottom top',
-        scrub: true
+        scrub: 1.5
       }
     });
 
@@ -77,22 +77,22 @@ export default function Hero() {
       </div>
 
       {/* Subtle Overlay to match brand look */}
-      <div className="absolute inset-0 z-[-1] bg-gradient-to-b from-bmw-black/50 via-bmw-black/20 to-bmw-black" />
+      <div className="absolute inset-0 z-[-1] bg-gradient-to-b from-[#131313]/60 via-[#131313]/30 to-[#131313]/90" />
 
       {/* Spacer for top */}
       <div />
 
       {/* Main Typography content */}
-      <div className="max-w-5xl mx-auto text-center px-4 select-none">
+      <div className="w-full max-w-[1440px] mx-auto text-center px-6 md:px-12 lg:px-24 select-none flex flex-col items-center">
         <h1
           ref={titleRef}
-          className="text-7xl sm:text-9xl md:text-[12rem] font-light tracking-[0.25em] text-bmw-light font-display leading-none mb-4 mr-[-0.25em]"
+          className="text-6xl sm:text-8xl lg:text-9xl font-light tracking-tight text-[#F3F3F3] font-sans leading-none mb-6 ml-[0.125em]"
         >
           BMW
         </h1>
         <p
           ref={subtitleRef}
-          className="text-sm sm:text-base md:text-lg uppercase tracking-[0.6em] font-display text-bmw-light-gray mr-[-0.6em] font-light"
+          className="text-xs sm:text-sm md:text-base uppercase tracking-[0.8em] font-sans text-[#B5B5B5] ml-[0.4em] font-light"
         >
           THE ULTIMATE DRIVING MACHINE
         </p>
@@ -100,7 +100,7 @@ export default function Hero() {
 
       {/* Bottom Scroll Indicator */}
       <div className="flex flex-col items-center select-none">
-        <span className="text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-display mb-4 mr-[-0.4em]">
+        <span className="text-[10px] tracking-[0.5em] text-[#B5B5B5] uppercase font-sans mb-6 ml-[0.25em]">
           SCROLL TO EXPERIENCE
         </span>
         <div ref={lineRef} className="scroll-indicator-line" />

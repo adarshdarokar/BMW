@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = [
+    { label: 'History', id: 'introduction' },
+    { label: 'Innovation', id: 'philosophy' },
+    { label: 'Heritage', id: 'timeline' },
+    { label: 'Experience', id: 'experience' }
+  ];
+
   const scrollToSection = (id) => {
+    setMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -25,77 +30,77 @@ export default function Navbar() {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ease-in-out px-6 md:px-12 py-5 md:py-6 flex items-center justify-between ${
-        isScrolled ? 'glass-nav py-4' : 'bg-transparent'
-      }`}
-    >
-      {/* Brand logo / text */}
-      <div 
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="cursor-pointer font-display tracking-[0.4em] font-light text-xl hover:opacity-75 transition-opacity"
+    <>
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-in-out h-[80px] flex items-center ${
+          isScrolled 
+            ? 'bg-[#131313]/80 backdrop-blur-xl border-b border-[#F3F3F3]/5' 
+            : 'bg-transparent'
+        }`}
       >
-        BMW
-      </div>
+        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 flex justify-between items-center h-full">
+          
+          {/* Left: BMW Logo (Text-based for premium editorial feel) */}
+          <div 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="cursor-pointer font-sans font-medium text-sm text-[#F3F3F3] tracking-[0.2em] hover:opacity-70 transition-opacity duration-300 uppercase"
+          >
+            BMW
+          </div>
 
-      {/* Navigation Links */}
-      <div className="hidden md:flex items-center space-x-10 text-xs font-medium tracking-[0.2em] text-bmw-light-gray">
-        <button 
-          onClick={() => scrollToSection('introduction')}
-          className="hover:text-bmw-light transition-colors duration-300 relative group"
-        >
-          INTRODUCTION
-          <span className="absolute bottom-[-4px] left-0 w-0 h-[1px] bg-bmw-light transition-all duration-300 group-hover:w-full"></span>
-        </button>
-        <button 
-          onClick={() => scrollToSection('logo-scroll')}
-          className="hover:text-bmw-light transition-colors duration-300 relative group"
-        >
-          DESIGN
-          <span className="absolute bottom-[-4px] left-0 w-0 h-[1px] bg-bmw-light transition-all duration-300 group-hover:w-full"></span>
-        </button>
-        <button 
-          onClick={() => scrollToSection('timeline')}
-          className="hover:text-bmw-light transition-colors duration-300 relative group"
-        >
-          HERITAGE
-          <span className="absolute bottom-[-4px] left-0 w-0 h-[1px] bg-bmw-light transition-all duration-300 group-hover:w-full"></span>
-        </button>
-        <button 
-          onClick={() => scrollToSection('philosophy')}
-          className="hover:text-bmw-light transition-colors duration-300 relative group"
-        >
-          PHILOSOPHY
-          <span className="absolute bottom-[-4px] left-0 w-0 h-[1px] bg-bmw-light transition-all duration-300 group-hover:w-full"></span>
-        </button>
-        <button 
-          onClick={() => scrollToSection('experience')}
-          className="hover:text-bmw-light transition-colors duration-300 relative group"
-        >
-          EXPERIENCE
-          <span className="absolute bottom-[-4px] left-0 w-0 h-[1px] bg-bmw-light transition-all duration-300 group-hover:w-full"></span>
-        </button>
-      </div>
+          {/* Center: Empty to maintain minimal aesthetic */}
+          <div className="flex-1"></div>
 
-      {/* Right Indicator / Menu */}
-      <div className="flex items-center space-x-4">
-        <span className="hidden sm:inline-block text-[10px] tracking-[0.25em] text-bmw-gray border border-bmw-medium/40 px-3 py-1.5 rounded-full select-none font-mono">
-          M PERFORMANCE
-        </span>
-        
-        {/* Minimal Mobile Menu Button (Hamburger) */}
-        <button 
-          onClick={() => scrollToSection('experience')}
-          className="md:hidden flex flex-col justify-between w-5 h-3 cursor-pointer group"
-          aria-label="Toggle Menu"
-        >
-          <span className="w-full h-[1px] bg-bmw-light transition-all group-hover:bg-bmw-light-gray"></span>
-          <span className="w-full h-[1px] bg-bmw-light transition-all group-hover:bg-bmw-light-gray"></span>
-        </button>
-      </div>
-    </motion.nav>
+          {/* Right: Menu Button */}
+          <div className="flex items-center">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="group relative flex flex-col items-center justify-center text-sm font-sans font-light text-[#F3F3F3] tracking-[0.1em] uppercase transition-all duration-500 hover:-translate-y-[2px] cursor-pointer"
+            >
+              <span className="opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                Menu
+              </span>
+              <span className="absolute bottom-[-6px] left-1/2 w-0 h-[1px] bg-[#F3F3F3] -translate-x-1/2 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full"></span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Fullscreen Mobile Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-40 bg-[#131313] flex flex-col justify-center items-center px-6"
+          >
+            {/* Close Button within the menu for intuitive UX */}
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="absolute top-[30px] right-6 md:right-12 lg:right-24 text-sm font-sans font-medium text-[#F3F3F3] tracking-[0.2em] uppercase opacity-70 hover:opacity-100 transition-opacity duration-300"
+            >
+              CLOSE
+            </button>
+
+            <div className="flex flex-col items-center gap-12">
+              {navLinks.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 + index * 0.1, ease: 'easeOut' }}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-4xl sm:text-6xl font-sans font-light tracking-[0.1em] text-[#F3F3F3] hover:text-[#B5B5B5] transition-colors uppercase"
+                >
+                  {item.label}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

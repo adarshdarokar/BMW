@@ -28,7 +28,7 @@ export default function Storytelling() {
           trigger: img1WrapperRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true
+          scrub: 1.5
         }
       }
     ).scrollTrigger);
@@ -42,7 +42,7 @@ export default function Storytelling() {
           trigger: img2WrapperRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true
+          scrub: 1.5
         }
       }
     ).scrollTrigger);
@@ -58,14 +58,14 @@ export default function Storytelling() {
         {
           opacity: 1,
           y: 0,
-          stagger: 0.15,
-          duration: 1,
+          stagger: 0.2,
+          duration: 1.5,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: block,
             start: 'top 80%',
             end: 'top 40%',
-            scrub: true
+            scrub: 1.5
           }
         }
       ).scrollTrigger);
@@ -80,9 +80,9 @@ export default function Storytelling() {
     <section
       ref={containerRef}
       id="storytelling"
-      className="relative w-full bg-bmw-black py-12 md:py-20 px-6 md:px-12 overflow-hidden"
+      className="relative w-full bg-[#131313] py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto flex flex-col space-y-24 md:space-y-40 relative z-10 select-none">
+      <div className="w-full max-w-[1440px] mx-auto flex flex-col space-y-24 md:space-y-40 relative z-10 select-none">
         
         {/* Story 1: Exterior / Precision */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
@@ -91,10 +91,10 @@ export default function Storytelling() {
             ref={text1Ref}
             className="md:col-span-5 flex flex-col justify-center order-2 md:order-1"
           >
-            <span className="story-anim text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-bold mb-3 block">
+            <span className="story-anim text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-light mb-3 block">
               DESIGN PHILOSOPHY
             </span>
-            <h2 className="story-anim text-3xl md:text-5xl font-light font-display text-bmw-light leading-tight mb-6">
+            <h2 className="story-anim text-3xl md:text-5xl font-light font-sans text-bmw-light leading-tight mb-6">
               AESTHETIC PRECISION
             </h2>
             <p className="story-anim text-sm sm:text-base font-light leading-relaxed text-bmw-light-gray mb-6">
@@ -150,10 +150,10 @@ export default function Storytelling() {
             ref={text2Ref}
             className="md:col-span-5 flex flex-col justify-center pl-0 md:pl-8"
           >
-            <span className="story-anim text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-bold mb-3 block">
+            <span className="story-anim text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-light mb-3 block">
               HUMAN CENTRIC
             </span>
-            <h2 className="story-anim text-3xl md:text-5xl font-light font-display text-bmw-light leading-tight mb-6">
+            <h2 className="story-anim text-3xl md:text-5xl font-light font-sans text-bmw-light leading-tight mb-6">
               INTELLIGENT SANCTUARY
             </h2>
             <p className="story-anim text-sm sm:text-base font-light leading-relaxed text-bmw-light-gray mb-6">

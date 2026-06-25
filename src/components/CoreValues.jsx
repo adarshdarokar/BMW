@@ -46,8 +46,8 @@ export default function CoreValues() {
       scrollTrigger: {
         trigger: parent,
         start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
+        end: '+=200%',
+        scrub: 1.5,
         pin: pinRef.current,
       }
     });
@@ -74,7 +74,7 @@ export default function CoreValues() {
         x: prevIdx === 0 ? 0 : 0,
         opacity: prevIdx === 0 ? 0 : 0,
         y: prevIdx === 0 ? -30 : -30,
-        duration: 1,
+        duration: 1.5,
         ease: 'power2.inOut'
       })
       .to([itemsRef.current[idx], descRef.current[idx]], {
@@ -82,10 +82,10 @@ export default function CoreValues() {
         x: 20,
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 1.5,
         ease: 'power3.out'
-      }, '-=0.5')
-      .to({}, { duration: 0.4 }); // Hold
+      }, '-=0.8')
+      .to({}, { duration: 0.5 }); // Hold
     });
 
     return () => {
@@ -97,13 +97,13 @@ export default function CoreValues() {
     <section
       ref={containerRef}
       id="core-values"
-      className="relative w-full h-[200vh] bg-bmw-black"
+      className="relative w-full min-h-screen bg-[#131313]"
     >
       <div
         ref={pinRef}
-        className="w-full h-screen sticky top-0 flex items-center justify-center overflow-hidden px-8 md:px-24"
+        className="w-full h-screen sticky top-0 flex items-center justify-center overflow-hidden px-6 md:px-12 lg:px-24"
       >
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full max-w-7xl mx-auto items-center select-none z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full max-w-[1440px] mx-auto items-center select-none z-10">
           
           {/* Left Column: Vertical values navigation tracker */}
           <div className="col-span-1 md:col-span-5 flex flex-col space-y-6 md:space-y-10 border-l border-bmw-medium/20 pl-4 py-6">
@@ -111,7 +111,7 @@ export default function CoreValues() {
               <div
                 key={idx}
                 ref={el => itemsRef.current[idx] = el}
-                className="flex items-center space-x-6 text-2xl md:text-4xl font-light font-display tracking-wider cursor-default origin-left transition-all duration-300"
+                className="flex items-center space-x-6 text-2xl md:text-4xl font-light font-sans tracking-wider cursor-default origin-left transition-all duration-300"
                 style={{ color: '#3C3C3C' }}
               >
                 <span className="text-xs md:text-sm font-mono tracking-widest text-bmw-gray">
@@ -130,7 +130,7 @@ export default function CoreValues() {
                 ref={el => descRef.current[idx] = el}
                 className="absolute w-full flex flex-col justify-center pointer-events-none opacity-0 translate-y-8"
               >
-                <span className="text-[10px] tracking-[0.4em] font-bold text-bmw-light-gray uppercase mb-3">
+                <span className="text-[10px] tracking-[0.4em] font-medium text-bmw-light-gray uppercase mb-3">
                   CORE BRAND PILLAR
                 </span>
                 <p className="text-lg md:text-2xl font-light leading-relaxed text-bmw-light-gray max-w-xl">
