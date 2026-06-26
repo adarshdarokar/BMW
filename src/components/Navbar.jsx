@@ -57,9 +57,9 @@ export default function Navbar() {
       const element = document.getElementById(id);
       if (element) {
         if (window.lenis) {
-          window.lenis.scrollTo(element, { 
-            duration: 1.8, 
-            ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+          window.lenis.scrollTo(element, {
+            duration: 1.8,
+            ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
           });
         } else {
           element.scrollIntoView({ behavior: 'smooth' });
@@ -113,17 +113,22 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed inset-x-0 top-0 z-50 h-20 transition-all duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-          isScrolled
-            ? 'bg-[#0f0f0f]/60 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
-            : 'bg-transparent border-b border-transparent'
-        }`}
+        className={`fixed inset-x-0 top-0 z-50 h-20 transition-all duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] ${isScrolled
+          ? 'bg-[#0f0f0f]/60 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+          : 'bg-transparent border-b border-transparent'
+          }`}
       >
         {/* Centered max-width container with equal horizontal padding */}
         <div className="w-full max-w-[1440px] mx-auto h-full px-5 md:px-8 lg:px-12 flex items-center justify-between">
-          
-          {/* Left Placeholder for Flex Alignment */}
-          <div />
+
+          {/* Left: Title wordmark */}
+          <button
+            onClick={handleLogoClick}
+            className="flex items-center shrink-0 cursor-pointer outline-none select-none transition-all duration-300 hover:opacity-85"
+            aria-label="BMW Home"
+          >
+
+          </button>
 
           {/* Right: Menu Button - Naturally aligned via Flexbox container layout */}
           <button
@@ -186,9 +191,7 @@ export default function Navbar() {
 
             {/* Subtle brand graphic bottom right of the menu */}
             <div className="absolute bottom-10 right-5 md:right-8 lg:right-12 pointer-events-none opacity-5">
-              <span className="text-[12vw] font-black font-sans tracking-tight text-white select-none">
-                BMW
-              </span>
+
             </div>
           </motion.div>
         )}
