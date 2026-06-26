@@ -69,22 +69,30 @@ export default function CoreValues() {
       const prevIdx = idx - 1;
       
       // Transition from prev to current
-      tl.to([itemsRef.current[prevIdx], descRef.current[prevIdx]], {
-        color: prevIdx === 0 ? '#3C3C3C' : '#3C3C3C', // target inactive color
-        x: prevIdx === 0 ? 0 : 0,
-        opacity: prevIdx === 0 ? 0 : 0,
-        y: prevIdx === 0 ? -30 : -30,
+      tl.to(itemsRef.current[prevIdx], {
+        color: '#3C3C3C',
+        x: 0,
         duration: 1.5,
         ease: 'power2.inOut'
       })
-      .to([itemsRef.current[idx], descRef.current[idx]], {
-        color: '#F3F3F3', // active color
+      .to(descRef.current[prevIdx], {
+        opacity: 0,
+        y: -30,
+        duration: 1.5,
+        ease: 'power2.inOut'
+      }, '-=1.5')
+      .to(itemsRef.current[idx], {
+        color: '#F3F3F3',
         x: 20,
+        duration: 1.5,
+        ease: 'power3.out'
+      }, '-=0.8')
+      .to(descRef.current[idx], {
         opacity: 1,
         y: 0,
         duration: 1.5,
         ease: 'power3.out'
-      }, '-=0.8')
+      }, '-=1.5')
       .to({}, { duration: 0.5 }); // Hold
     });
 

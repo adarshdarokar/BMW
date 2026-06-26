@@ -7,11 +7,31 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   const navLinks = [
@@ -21,82 +41,154 @@ export default function Navbar() {
     { label: 'Experience', id: 'experience' }
   ];
 
-  const scrollToSection = (id) => {
+  const handleLogoClick = () => {
     setMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { duration: 1.5 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleLinkClick = (id) => {
+    setMenuOpen(false);
+    // Allow closing animation to play before scrolling for a premium feeling
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        if (window.lenis) {
+          window.lenis.scrollTo(element, { 
+            duration: 1.8, 
+            ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+          });
+        } else {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }, 450);
+  };
+
+  // Framer Motion Animation Variants using cubic-bezier(0.76, 0, 0.24, 1)
+  const overlayVariants = {
+    hidden: {
+      opacity: 0,
+      transition: {
+        duration: 0.45,
+        ease: [0.76, 0, 0.24, 1],
+        when: 'afterChildren',
+        staggerChildren: 0.05,
+        staggerDirection: -1
+      }
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.76, 0, 0.24, 1],
+        when: 'beforeChildren',
+        staggerChildren: 0.08
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 40,
+      transition: {
+        duration: 0.4,
+        ease: [0.76, 0, 0.24, 1]
+      }
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.55,
+        ease: [0.76, 0, 0.24, 1]
+      }
     }
   };
 
   return (
     <>
       <nav
-        className={`fixed inset-x-0 top-0 z-50 h-20 flex items-center transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] ${isScrolled
-            ? "bg-[#131313]/70 backdrop-blur-2xl border-b border-white/5"
-            : "bg-transparent"
-          }`}
+        className={`fixed inset-x-0 top-0 z-50 h-20 transition-all duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+          isScrolled
+            ? 'bg-[#0f0f0f]/60 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
+            : 'bg-transparent border-b border-transparent'
+        }`}
       >
-        <div className="w-full max-w-[1440px] mx-auto h-full px-6 md:px-10 lg:px-14 xl:px-16 flex items-center justify-between">
+        {/* Centered max-width container with equal horizontal padding */}
+        <div className="w-full max-w-[1440px] mx-auto h-full px-5 md:px-8 lg:px-12 flex items-center justify-between">
+          
+          {/* Left Placeholder for Flex Alignment */}
+          <div />
 
-          {/* BMW Logo */}
+          {/* Right: Menu Button - Naturally aligned via Flexbox container layout */}
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center justify-center shrink-0 cursor-pointer transition-all duration-300 hover:opacity-80 hover:scale-105"
+            onClick={() => setMenuOpen(true)}
+            className="group relative flex items-center justify-center text-sm font-medium uppercase tracking-[0.18em] text-[#F3F3F3] cursor-pointer py-2 outline-none select-none"
+            aria-label="Open Menu"
           >
-            <img
-              src="/logo.jpg"
-              alt="BMW Logo"
-              className="h-9 w-9 md:h-10 md:w-10 rounded-full object-cover"
-            />
-          </button>
-
-          {/* Menu */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="group relative flex items-center justify-center text-sm font-medium uppercase tracking-[0.18em] text-white transition-all duration-500 hover:-translate-y-[2px]"
-          >
-            <span className="opacity-80 transition-opacity duration-300 group-hover:opacity-100">
+            <span className="relative z-10 transition-transform duration-300 group-hover:-translate-y-[1px]">
               Menu
             </span>
-
-            <span className="absolute -bottom-1 left-1/2 h-px w-0 -translate-x-1/2 bg-white transition-all duration-500 group-hover:w-full"></span>
+            <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full"></span>
           </button>
 
         </div>
       </nav>
 
-      {/* Fullscreen Mobile Menu */}
+      {/* Fullscreen Mobile Menu Overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: '-100%' }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-100%' }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 bg-[#131313] flex flex-col justify-center items-center px-6"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={overlayVariants}
+            className="fixed inset-0 z-50 bg-[#111111] flex flex-col justify-center select-none"
           >
-            {/* Close Button within the menu for intuitive UX */}
+            {/* Close Button positioned at the container margin coordinates */}
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute top-[30px] right-5 md:right-8 lg:right-12 text-sm font-sans font-medium text-[#F3F3F3] tracking-[0.2em] uppercase opacity-70 hover:opacity-100 transition-opacity duration-300"
+              className="absolute top-6 right-5 md:right-8 lg:right-12 text-sm font-medium uppercase tracking-[0.18em] text-[#F3F3F3] cursor-pointer group flex items-center gap-3 hover:text-white transition-colors duration-300 outline-none"
+              aria-label="Close Menu"
             >
-              CLOSE
+              <span className="opacity-80 group-hover:opacity-100 transition-opacity">Close</span>
+              <svg
+                className="w-4 h-4 transform group-hover:rotate-90 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
 
-            <div className="flex flex-col items-center gap-12">
-              {navLinks.map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 + index * 0.1, ease: 'easeOut' }}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-4xl sm:text-6xl font-sans font-light tracking-[0.1em] text-[#F3F3F3] hover:text-[#B5B5B5] transition-colors uppercase"
-                >
-                  {item.label}
-                </motion.button>
-              ))}
+            {/* Menu Content aligned with the container left margin */}
+            <div className="w-full max-w-[1440px] mx-auto px-5 md:px-8 lg:px-12 flex flex-col justify-center items-start">
+              <div className="flex flex-col items-start gap-8 md:gap-12">
+                {navLinks.map((item) => (
+                  <motion.button
+                    key={item.id}
+                    variants={itemVariants}
+                    onClick={() => handleLinkClick(item.id)}
+                    className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-light tracking-[0.08em] text-white/40 hover:text-white uppercase transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] hover:translate-x-6 cursor-pointer text-left outline-none"
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+
+            {/* Subtle brand graphic bottom right of the menu */}
+            <div className="absolute bottom-10 right-5 md:right-8 lg:right-12 pointer-events-none opacity-5">
+              <span className="text-[12vw] font-black font-sans tracking-tight text-white select-none">
+                BMW
+              </span>
             </div>
           </motion.div>
         )}
