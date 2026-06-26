@@ -11,7 +11,6 @@ import Storytelling from './components/Storytelling';
 import CoreValues from './components/CoreValues';
 import Statistics from './components/Statistics';
 import FinalExperience from './components/FinalExperience';
-import Footer from './components/Footer';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,9 +62,9 @@ export default function App() {
           <CoreValues />
           <Statistics />
           <FinalExperience />
-          <Footer />
         </>
       )}
     </div>
   );
 }
+

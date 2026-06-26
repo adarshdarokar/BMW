@@ -83,14 +83,23 @@ export default function FinalExperience() {
           EXPERIENCE BMW
         </h2>
 
-        {/* Premium Call to Action */}
-        <div ref={buttonRef} className="inline-block">
-          <button
-            className="px-10 py-4 border border-current text-xs tracking-[0.3em] font-semibold uppercase relative overflow-hidden group cursor-pointer transition-colors duration-500 hover:text-[#F3F3F3] rounded-sm"
-          >
-            {/* Slide-in hover background */}
-            <span className="absolute inset-0 bg-[#131313] translate-y-[100%] transition-transform duration-500 ease-out group-hover:translate-y-0 z-[-1]" />
-            BOOK A TEST DRIVE
+        {/* Premium Luxury Call to Action */}
+        <div ref={buttonRef} className="inline-block btn-luxury-wrapper mt-4">
+          <div className="btn-luxury-glow"></div>
+          <button className="btn-luxury">
+            <span className="btn-luxury-sweep"></span>
+            <span className="btn-luxury-text">BOOK A TEST DRIVE</span>
+            <svg 
+              className="btn-luxury-arrow w-4 h-4" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
           </button>
         </div>
       </div>
