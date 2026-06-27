@@ -63,7 +63,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden flex flex-col justify-between layout-container py-10 z-10"
+      className="relative w-screen min-h-screen overflow-hidden flex flex-col justify-between py-10 z-10"
     >
       {/* Background Video */}
       <div className="absolute inset-0 z-[-2] overflow-hidden bg-bmw-black">
@@ -74,7 +74,7 @@ export default function Hero() {
           loop
           playsInline
           poster={heroPoster}
-          className="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
+          className="absolute w-full h-full object-cover object-center opacity-80"
         >
           <source src="/BMW.mp4" type="video/mp4" />
           Your browser does not support the video tag.

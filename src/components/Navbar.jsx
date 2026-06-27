@@ -127,7 +127,7 @@ export default function Navbar() {
               className="flex items-center shrink-0 cursor-pointer outline-none select-none transition-all duration-300 hover:opacity-80"
               aria-label="BMW Home"
             >
-              <svg className="w-8 h-8 mr-3 text-white fill-current" viewBox="0 0 100 100">
+              <svg className="w-8 h-8 mr-5 text-white fill-current" viewBox="0 0 100 100">
                 <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="2.5"/>
                 <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M50,50 L50,12 A38,38 0 0,1 88,50 Z" fill="currentColor"/>
