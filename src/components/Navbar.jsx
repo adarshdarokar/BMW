@@ -121,13 +121,13 @@ export default function Navbar() {
           {/* Centered max-width container with equal horizontal padding */}
           <div className="layout-container h-full flex items-center justify-between">
 
-            {/* Left: Title wordmark */}
+            {/* Left: Branding Logo */}
             <button
               onClick={handleLogoClick}
               className="flex items-center shrink-0 cursor-pointer outline-none select-none transition-all duration-300 hover:opacity-80"
               aria-label="BMW Home"
             >
-              <svg className="w-8 h-8 mr-5 text-white fill-current" viewBox="0 0 100 100">
+              <svg className="w-12 h-12 text-white fill-current logo-rotate" viewBox="0 0 100 100">
                 <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="2.5"/>
                 <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M50,50 L50,12 A38,38 0 0,1 88,50 Z" fill="currentColor"/>
@@ -138,7 +138,6 @@ export default function Navbar() {
                 <text x="46" y="27" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor">M</text>
                 <text x="61" y="34" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor" transform="rotate(35, 61, 34)">W</text>
               </svg>
-              <span className="font-sans text-xs tracking-[0.5em] font-semibold text-[#F3F3F3]">B M W</span>
             </button>
 
             {/* Right: Menu Button - Naturally aligned via Flexbox container layout */}

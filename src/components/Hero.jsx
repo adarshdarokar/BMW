@@ -11,6 +11,7 @@ export default function Hero() {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const lineRef = useRef(null);
+  const overlayWrapperRef = useRef(null);
 
   useEffect(() => {
     // Elegant reveal animation for the hero content
@@ -60,6 +61,45 @@ export default function Hero() {
     };
   }, []);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    const wrapper = overlayWrapperRef.current;
+    if (!video || !wrapper) return;
+
+    let currentState = 'visible';
+
+    const syncOverlay = () => {
+      const time = video.currentTime;
+      if (time >= 26.0) {
+        if (currentState !== 'hidden') {
+          currentState = 'hidden';
+          wrapper.classList.remove('state-visible', 'animate-show');
+          wrapper.classList.add('state-hidden', 'animate-hide');
+        }
+      } else {
+        if (currentState !== 'visible') {
+          currentState = 'visible';
+          wrapper.classList.remove('state-hidden', 'animate-hide');
+          wrapper.classList.add('state-visible', 'animate-show');
+        }
+      }
+    };
+
+    video.addEventListener('timeupdate', syncOverlay);
+
+    let rafId;
+    const tick = () => {
+      syncOverlay();
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      video.removeEventListener('timeupdate', syncOverlay);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
     <section
       ref={containerRef}
@@ -88,7 +128,10 @@ export default function Hero() {
       <div />
 
       {/* Main Typography content */}
-      <div className="w-full max-w-[1440px] mx-auto text-center px-6 md:px-12 lg:px-24 select-none flex flex-col items-center">
+      <div
+        ref={overlayWrapperRef}
+        className="w-full max-w-[1440px] mx-auto text-center px-6 md:px-12 lg:px-24 select-none flex flex-col items-center hero-content-anim state-visible"
+      >
         <h1
           ref={titleRef}
           className="text-6xl sm:text-8xl lg:text-9xl font-light tracking-tight text-[#F3F3F3] font-sans leading-none mb-6 ml-[0.125em]"
