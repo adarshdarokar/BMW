@@ -86,7 +86,7 @@ export default function FinalExperience() {
         {/* Premium Luxury Call to Action */}
         <div ref={buttonRef} className="inline-block btn-luxury-wrapper mt-4">
           <div className="btn-luxury-glow"></div>
-          <button className="btn-luxury">
+          <button className="btn-luxury" aria-label="Book a test drive in the BMW M5">
             <span className="btn-luxury-sweep"></span>
             <span className="btn-luxury-text">BOOK A TEST DRIVE</span>
             <svg 

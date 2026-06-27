@@ -102,14 +102,17 @@ export default function Storytelling() {
               Aerodynamics are not added; they are carved into the very soul of the chassis, 
               sculpted to guide airflow and command road presence with equal authority.
             </p>
-            <div className="story-anim flex items-center space-x-3 group cursor-pointer w-fit">
+            <button 
+              className="story-anim flex items-center space-x-3 group cursor-pointer w-fit outline-none"
+              aria-label="Explore exterior design surfacing details"
+            >
               <span className="text-xs tracking-[0.2em] font-medium text-bmw-light group-hover:text-bmw-light-gray transition-colors">
                 EXPLORE SURFACING
               </span>
               <svg className="w-4 h-4 text-bmw-light transform group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </div>
+            </button>
           </div>
 
           {/* Large image right */}
@@ -122,7 +125,7 @@ export default function Storytelling() {
             <img
               ref={img1Ref}
               src="/assets/exterior.webp"
-              alt="BMW Headlight Detail"
+              alt="BMW M5 high-performance sports car sleek double headlight detailing"
               className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated"
             />
           </div>
@@ -140,7 +143,7 @@ export default function Storytelling() {
             <img
               ref={img2Ref}
               src="/assets/interior.webp"
-              alt="BMW Luxury Cockpit"
+              alt="BMW luxury modern vehicle interior dashboard display and leather console view"
               className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated"
             />
           </div>
@@ -161,14 +164,17 @@ export default function Storytelling() {
               blends with responsive ambient luminescence to create an atmosphere that isolates 
               distractions and heightens sensory connection to the drive.
             </p>
-            <div className="story-anim flex items-center space-x-3 group cursor-pointer w-fit">
+            <button 
+              className="story-anim flex items-center space-x-3 group cursor-pointer w-fit outline-none"
+              aria-label="Explore interior cabin details"
+            >
               <span className="text-xs tracking-[0.2em] font-medium text-bmw-light group-hover:text-bmw-light-gray transition-colors">
                 INNER DETAILS
               </span>
               <svg className="w-4 h-4 text-bmw-light transform group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </div>
+            </button>
           </div>
         </div>
 

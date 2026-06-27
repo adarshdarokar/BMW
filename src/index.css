@@ -77,7 +77,7 @@ html.lenis, html.lenis body {
   background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
   border-radius: 9999px;
   opacity: 0;
-  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 500ms cubic-bezier(0.76, 0, 0.24, 1);
   z-index: 0;
   filter: blur(10px);
 }
@@ -101,7 +101,7 @@ html.lenis, html.lenis body {
   letter-spacing: 0.12em;
   font-size: 13px;
   color: #ffffff;
-  transition: all 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 500ms cubic-bezier(0.76, 0, 0.24, 1);
   box-shadow: 
     0 10px 30px -10px rgba(0, 0, 0, 0.9),
     inset 0 1px 1px rgba(255, 255, 255, 0.1),
@@ -124,7 +124,7 @@ html.lenis, html.lenis body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  transition: all 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 500ms cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 /* Subtle glossy highlight at the top */
@@ -155,7 +155,7 @@ html.lenis, html.lenis body {
   margin-left: 14px;
   position: relative;
   z-index: 2;
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 500ms cubic-bezier(0.76, 0, 0.24, 1);
   color: #e0e0e0;
 }
 
@@ -192,7 +192,7 @@ html.lenis, html.lenis body {
 }
 
 .btn-luxury-wrapper:hover .btn-luxury-sweep {
-  animation: sweep-action 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: sweep-action 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
 /* Active State */
