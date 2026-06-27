@@ -2,11 +2,21 @@ const fs = require('fs');
 const path = require('path');
 
 try {
-  const logoPath = path.join(__dirname, 'public', 'logo.jpg');
+  const pngLogoPath = path.join(__dirname, 'public', 'logo.png');
+  const jpgLogoPath = path.join(__dirname, 'public', 'logo.jpg');
   const svgPath = path.join(__dirname, 'public', 'favicon.svg');
   
-  if (!fs.existsSync(logoPath)) {
-    console.error('logo.jpg not found in public folder');
+  let logoPath = '';
+  let mimeType = '';
+  
+  if (fs.existsSync(pngLogoPath)) {
+    logoPath = pngLogoPath;
+    mimeType = 'image/png';
+  } else if (fs.existsSync(jpgLogoPath)) {
+    logoPath = jpgLogoPath;
+    mimeType = 'image/jpeg';
+  } else {
+    console.error('logo.png or logo.jpg not found in public folder');
     process.exit(1);
   }
 
@@ -21,7 +31,7 @@ try {
     </clipPath>
   </defs>
   <image 
-    href="data:image/jpeg;base64,${base64Data}" 
+    href="data:${mimeType};base64,${base64Data}" 
     width="100" 
     height="100" 
     preserveAspectRatio="xMidYMid slice" 
@@ -30,7 +40,7 @@ try {
 </svg>`;
 
   fs.writeFileSync(svgPath, svgContent);
-  console.log('Successfully generated circular favicon.svg from logo.jpg');
+  console.log('Successfully generated circular favicon.svg from logo image');
 } catch (error) {
   console.error('Error generating favicon:', error);
 }
