@@ -80,9 +80,9 @@ export default function Storytelling() {
     <section
       ref={containerRef}
       id="storytelling"
-      className="relative w-full bg-[#131313] py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="relative w-full bg-[#131313] py-24 md:py-32 overflow-hidden"
     >
-      <div className="w-full max-w-[1440px] mx-auto flex flex-col space-y-24 md:space-y-40 relative z-10 select-none">
+      <div className="layout-container flex flex-col space-y-24 md:space-y-40 relative z-10 select-none">
         
         {/* Story 1: Exterior / Precision */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
@@ -121,9 +121,9 @@ export default function Storytelling() {
             <div className="absolute inset-0 bg-gradient-to-tr from-bmw-black/25 via-transparent to-bmw-black/10 z-10 pointer-events-none" />
             <img
               ref={img1Ref}
-              src="/assets/exterior.png"
+              src="/assets/exterior.webp"
               alt="BMW Headlight Detail"
-              className="w-full h-[130%] object-cover absolute top-0 left-0"
+              className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated"
             />
           </div>
         </div>
@@ -139,9 +139,9 @@ export default function Storytelling() {
             <div className="absolute inset-0 bg-gradient-to-tr from-bmw-black/25 via-transparent to-bmw-black/10 z-10 pointer-events-none" />
             <img
               ref={img2Ref}
-              src="/assets/interior.png"
+              src="/assets/interior.webp"
               alt="BMW Luxury Cockpit"
-              className="w-full h-[130%] object-cover absolute top-0 left-0"
+              className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated"
             />
           </div>
 

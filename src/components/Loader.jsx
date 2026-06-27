@@ -37,7 +37,7 @@ export default function Loader({ onComplete }) {
     const failedFrames = [];
     const preloadedImages = [];
 
-    const handleImageLoad = (imgSrc) => {
+    const handleImageLoad = () => {
       loadedCount++;
       successCount++;
       const currentPercent = Math.min(100, Math.floor((loadedCount / totalFrames) * 100));
@@ -91,8 +91,8 @@ export default function Loader({ onComplete }) {
     for (let i = 1; i <= totalFrames; i++) {
       const img = new Image();
       const paddedNum = String(i).padStart(3, '0');
-      const src = `/bmw-logo/ezgif-frame-${paddedNum}.jpg`;
-      img.onload = () => handleImageLoad(src);
+      const src = `/bmw-logo/frame_${paddedNum}.webp`;
+      img.onload = () => handleImageLoad();
       img.onerror = () => handleImageError(src);
       img.src = src;
       preloadedImages.push(img);

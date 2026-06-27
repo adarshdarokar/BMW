@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import heroPoster from '../assets/hero.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,7 +63,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden flex flex-col justify-between px-6 md:px-12 py-10 z-10"
+      className="relative w-full h-screen overflow-hidden flex flex-col justify-between layout-container py-10 z-10"
     >
       {/* Background Video */}
       <div className="absolute inset-0 z-[-2] overflow-hidden bg-bmw-black">
@@ -72,6 +73,7 @@ export default function Hero() {
           muted
           loop
           playsInline
+          poster={heroPoster}
           className="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-80"
         >
           <source src="/BMW.mp4" type="video/mp4" />

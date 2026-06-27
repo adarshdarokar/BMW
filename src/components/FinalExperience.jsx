@@ -25,7 +25,7 @@ export default function FinalExperience() {
       }
     });
 
-    tl.to(section, {
+    tl.to([section, 'footer'], {
       backgroundColor: '#F3F3F3',
       color: '#131313',
       ease: 'power2.out'
@@ -70,7 +70,7 @@ export default function FinalExperience() {
 
       <div
         ref={containerRef}
-        className="relative z-10 w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 text-center select-none"
+        className="relative z-10 layout-container text-center select-none"
       >
         <span className="text-[10px] tracking-[0.4em] text-[#B5B5B5] uppercase font-light mb-4 block">
           THE CLIMAX OF ENGINEERING

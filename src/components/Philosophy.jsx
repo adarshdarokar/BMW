@@ -149,25 +149,25 @@ export default function Philosophy() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] max-w-[700px] max-h-[700px] border border-[#F3F3F3]/10 rounded-full pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[450px] max-h-[450px] border border-[#F3F3F3]/5 rounded-full pointer-events-none" />
 
-        <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 text-center flex flex-col items-center justify-center select-none relative z-10">
+        <div className="layout-container text-center flex flex-col items-center justify-center select-none relative z-10">
           
           <h2
             ref={text1Ref}
-            className="text-4xl sm:text-6xl md:text-8xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full"
+            className="text-[7.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.1em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full"
           >
             DRIVEN BY PERFECTION
           </h2>
 
           <h2
             ref={text2Ref}
-            className="text-4xl sm:text-6xl md:text-8xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full"
+            className="text-[7.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.1em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full"
           >
             ENGINEERED FOR EMOTION
           </h2>
 
           <h2
             ref={text3Ref}
-            className="text-4xl sm:text-6xl md:text-8xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full text-stroke-medium"
+            className="text-[7.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.1em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase absolute w-full text-stroke-medium"
           >
             DESIGNED FOR THE FUTURE
           </h2>

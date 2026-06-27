@@ -118,84 +118,95 @@ export default function Navbar() {
           : 'bg-transparent border-b border-transparent'
           }`}
       >
-        {/* Centered max-width container with equal horizontal padding */}
-        <div className="w-full max-w-[1440px] mx-auto h-full px-5 md:px-8 lg:px-12 flex items-center justify-between">
+          {/* Centered max-width container with equal horizontal padding */}
+          <div className="layout-container h-full flex items-center justify-between">
 
-          {/* Left: Title wordmark */}
-          <button
-            onClick={handleLogoClick}
-            className="flex items-center shrink-0 cursor-pointer outline-none select-none transition-all duration-300 hover:opacity-85"
-            aria-label="BMW Home"
-          >
-
-          </button>
-
-          {/* Right: Menu Button - Naturally aligned via Flexbox container layout */}
-          <button
-            onClick={() => setMenuOpen(true)}
-            className="group relative flex items-center justify-center text-sm font-medium uppercase tracking-[0.18em] text-[#F3F3F3] cursor-pointer py-2 outline-none select-none"
-            aria-label="Open Menu"
-          >
-            <span className="relative z-10 transition-transform duration-300 group-hover:-translate-y-[1px]">
-              Menu
-            </span>
-            <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full"></span>
-          </button>
-
-        </div>
-      </nav>
-
-      {/* Fullscreen Mobile Menu Overlay */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={overlayVariants}
-            className="fixed inset-0 z-50 bg-[#111111] flex flex-col justify-center select-none"
-          >
-            {/* Close Button positioned at the container margin coordinates */}
+            {/* Left: Title wordmark */}
             <button
-              onClick={() => setMenuOpen(false)}
-              className="absolute top-6 right-5 md:right-8 lg:right-12 text-sm font-medium uppercase tracking-[0.18em] text-[#F3F3F3] cursor-pointer group flex items-center gap-3 hover:text-white transition-colors duration-300 outline-none"
-              aria-label="Close Menu"
+              onClick={handleLogoClick}
+              className="flex items-center shrink-0 cursor-pointer outline-none select-none transition-all duration-300 hover:opacity-80"
+              aria-label="BMW Home"
             >
-              <span className="opacity-80 group-hover:opacity-100 transition-opacity">Close</span>
-              <svg
-                className="w-4 h-4 transform group-hover:rotate-90 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-8 h-8 mr-3 text-white fill-current" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="2.5"/>
+                <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M50,50 L50,12 A38,38 0 0,1 88,50 Z" fill="currentColor"/>
+                <path d="M50,50 L12,50 A38,38 0 0,1 50,12 Z" fill="none"/>
+                <path d="M50,50 L50,88 A38,38 0 0,1 12,50 Z" fill="currentColor"/>
+                <path d="M50,50 L88,50 A38,38 0 0,1 50,88 Z" fill="none"/>
+                <text x="32" y="38" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor" transform="rotate(-35, 32, 38)">B</text>
+                <text x="46" y="27" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor">M</text>
+                <text x="61" y="34" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor" transform="rotate(35, 61, 34)">W</text>
               </svg>
+              <span className="font-sans text-xs tracking-[0.5em] font-semibold text-[#F3F3F3]">B M W</span>
             </button>
 
-            {/* Menu Content aligned with the container left margin */}
-            <div className="w-full max-w-[1440px] mx-auto px-5 md:px-8 lg:px-12 flex flex-col justify-center items-start">
-              <div className="flex flex-col items-start gap-8 md:gap-12">
-                {navLinks.map((item) => (
-                  <motion.button
-                    key={item.id}
-                    variants={itemVariants}
-                    onClick={() => handleLinkClick(item.id)}
-                    className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-light tracking-[0.08em] text-white/40 hover:text-white uppercase transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] hover:translate-x-6 cursor-pointer text-left outline-none"
-                  >
-                    {item.label}
-                  </motion.button>
-                ))}
+            {/* Right: Menu Button - Naturally aligned via Flexbox container layout */}
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="group relative flex items-center justify-center text-sm font-medium uppercase tracking-[0.18em] text-[#F3F3F3] cursor-pointer py-2 outline-none select-none"
+              aria-label="Open Menu"
+            >
+              <span className="relative z-10 transition-transform duration-300 group-hover:-translate-y-[1px]">
+                Menu
+              </span>
+              <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full"></span>
+            </button>
+
+          </div>
+        </nav>
+
+        {/* Fullscreen Mobile Menu Overlay */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={overlayVariants}
+              className="fixed inset-0 z-50 bg-[#111111] flex flex-col justify-center select-none"
+            >
+              {/* Close Button positioned at the container margin coordinates */}
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="absolute top-6 right-6 md:right-12 lg:right-24 text-sm font-medium uppercase tracking-[0.18em] text-[#F3F3F3] cursor-pointer group flex items-center gap-3 hover:text-white transition-colors duration-300 outline-none"
+                aria-label="Close Menu"
+              >
+                <span className="opacity-80 group-hover:opacity-100 transition-opacity">Close</span>
+                <svg
+                  className="w-4 h-4 transform group-hover:rotate-90 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Menu Content aligned with the container left margin */}
+              <div className="layout-container flex flex-col justify-center items-start">
+                <div className="flex flex-col items-start gap-8 md:gap-12">
+                  {navLinks.map((item) => (
+                    <motion.button
+                      key={item.id}
+                      variants={itemVariants}
+                      onClick={() => handleLinkClick(item.id)}
+                      className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-light tracking-[0.08em] text-white/40 hover:text-white uppercase transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] hover:translate-x-6 cursor-pointer text-left outline-none"
+                    >
+                      {item.label}
+                    </motion.button>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Subtle brand graphic bottom right of the menu */}
-            <div className="absolute bottom-10 right-5 md:right-8 lg:right-12 pointer-events-none opacity-5">
-
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              {/* Subtle brand graphic bottom right of the menu */}
+              <div className="absolute bottom-10 right-6 md:right-12 lg:right-24 pointer-events-none opacity-5 select-none">
+                <span className="text-[12vw] font-black font-sans tracking-tighter text-white">BMW</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
     </>
   );
 }

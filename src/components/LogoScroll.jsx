@@ -10,6 +10,9 @@ export default function LogoScroll() {
   const canvasRef = useRef(null);
   const overlayRef = useRef(null);
 
+  const canvasWidthRef = useRef(0);
+  const canvasHeightRef = useRef(0);
+
   const [framesLoaded, setFramesLoaded] = useState(false);
   const framesRef = useRef([]);
 
@@ -68,7 +71,7 @@ export default function LogoScroll() {
         for (let i = 1; i <= totalFrames; i++) {
           const img = new Image();
           const paddedNum = String(i).padStart(3, '0');
-          img.src = `/bmw-logo/ezgif-frame-${paddedNum}.jpg`;
+          img.src = `/bmw-logo/frame_${paddedNum}.webp`;
 
           img.onload = () => {
             completed++;
@@ -127,9 +130,11 @@ export default function LogoScroll() {
         return;
       }
 
-      const rect = canvas.getBoundingClientRect();
-      const canvasWidth = rect.width;
-      const canvasHeight = rect.height;
+      const canvasWidth = canvasWidthRef.current;
+      const canvasHeight = canvasHeightRef.current;
+      if (canvasWidth === 0 || canvasHeight === 0) {
+        return;
+      }
 
       // Clear the canvas context using current transform matrix bounds
       context.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -154,6 +159,10 @@ export default function LogoScroll() {
       const rect = canvas.getBoundingClientRect();
 
       if (rect.width === 0 || rect.height === 0) return;
+
+      // Cache dimensions in refs to prevent layout reflow during high-frequency renders (scrolls)
+      canvasWidthRef.current = rect.width;
+      canvasHeightRef.current = rect.height;
 
       // Adjust canvas resolution dynamically
       canvas.width = rect.width * dpr;

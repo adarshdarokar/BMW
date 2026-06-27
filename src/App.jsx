@@ -48,21 +48,19 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-bmw-black text-bmw-light overflow-x-hidden font-sans">
-      {isLoading ? (
+      <Navbar />
+      <Hero />
+      <LogoScroll />
+      <Introduction />
+      <LegacyTimeline />
+      <Philosophy />
+      <Storytelling />
+      <CoreValues />
+      <Statistics />
+      <FinalExperience />
+      
+      {isLoading && (
         <Loader onComplete={() => setIsLoading(false)} />
-      ) : (
-        <>
-          <Navbar />
-          <Hero />
-          <LogoScroll />
-          <Introduction />
-          <LegacyTimeline />
-          <Philosophy />
-          <Storytelling />
-          <CoreValues />
-          <Statistics />
-          <FinalExperience />
-        </>
       )}
     </div>
   );

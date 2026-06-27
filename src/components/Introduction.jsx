@@ -19,7 +19,6 @@ export default function Introduction() {
 
   useEffect(() => {
     const parent = containerRef.current;
-    const titleContainer = titleContainerRef.current;
     
     // Helper to split text into characters wrapped in overflow-hidden spans
     const splitTextToSpans = (element) => {
@@ -200,47 +199,47 @@ export default function Introduction() {
 
         <div
           ref={titleContainerRef}
-          className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 text-center select-none"
+          className="layout-container text-center select-none"
         >
           {/* Main sequence displays */}
           <h2
             ref={bmvTextRef}
-            className="text-3xl sm:text-5xl md:text-7xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] leading-snug"
+            className="text-[5.5vw] sm:text-5xl md:text-7xl font-light tracking-[0.15em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-snug"
           >
             BAYERISCHE MOTOREN WERKE
           </h2>
 
           <h2
             ref={word1Ref}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none"
+            className="text-[9vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.15em] sm:tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             LUXURY
           </h2>
 
           <h2
             ref={word2Ref}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.2em] font-sans text-[#F3F3F3] uppercase leading-none"
+            className="text-[8vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.1em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             INNOVATION
           </h2>
 
           <h2
             ref={word3Ref}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.15em] font-sans text-[#F3F3F3] uppercase leading-none"
+            className="text-[7.5vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.05em] sm:tracking-[0.15em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             PERFORMANCE
           </h2>
 
           <h2
             ref={word4Ref}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.25em] font-sans text-[#F3F3F3] uppercase leading-none"
+            className="text-[7.5vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.05em] sm:tracking-[0.25em] font-sans text-[#F3F3F3] uppercase leading-none"
           >
             ENGINEERING
           </h2>
 
           <h2
             ref={word5Ref}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none text-stroke-medium"
+            className="text-[8.5vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.1em] sm:tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none text-stroke-medium"
           >
             PRECISION
           </h2>

@@ -4,100 +4,146 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const values = [
+  {
+    num: "01",
+    title: "PRECISION",
+    desc: "Measured in microns, perfected in motion. We align tolerance to physical limits, ensuring absolute synergy between human intention and mechanical response."
+  },
+  {
+    num: "02",
+    title: "PERFORMANCE",
+    desc: "More than horsepower. It is the perfect equilibrium of power delivery, cornering agility, and braking responsiveness that makes the drive an addictive art form."
+  },
+  {
+    num: "03",
+    title: "INNOVATION",
+    desc: "Constructing the infrastructure of tomorrow. We integrate intelligence directly into structural elements, pioneering new paradigms of driver assistance and circular recycling."
+  },
+  {
+    num: "04",
+    title: "LUXURY",
+    desc: "A sensory experience designed to soothe. High-end materials, acoustic damping, and ergonomic mastery create a personal sanctuary that isolates you from the chaos of the road."
+  },
+  {
+    num: "05",
+    title: "ENGINEERING",
+    desc: "Born out of aircraft precision, engineered for racing dominance. Every mechanical unit represents a decade of iteration, designed to withstand stress and perform under absolute loads."
+  }
+];
+
 export default function CoreValues() {
   const containerRef = useRef(null);
   const pinRef = useRef(null);
   const itemsRef = useRef([]);
   const descRef = useRef([]);
 
-  const values = [
-    {
-      num: "01",
-      title: "PRECISION",
-      desc: "Measured in microns, perfected in motion. We align tolerance to physical limits, ensuring absolute synergy between human intention and mechanical response."
-    },
-    {
-      num: "02",
-      title: "PERFORMANCE",
-      desc: "More than horsepower. It is the perfect equilibrium of power delivery, cornering agility, and braking responsiveness that makes the drive an addictive art form."
-    },
-    {
-      num: "03",
-      title: "INNOVATION",
-      desc: "Constructing the infrastructure of tomorrow. We integrate intelligence directly into structural elements, pioneering new paradigms of driver assistance and circular recycling."
-    },
-    {
-      num: "04",
-      title: "LUXURY",
-      desc: "A sensory experience designed to soothe. High-end materials, acoustic damping, and ergonomic mastery create a personal sanctuary that isolates you from the chaos of the road."
-    },
-    {
-      num: "05",
-      title: "ENGINEERING",
-      desc: "Born out of aircraft precision, engineered for racing dominance. Every mechanical unit represents a decade of iteration, designed to withstand stress and perform under absolute loads."
-    }
-  ];
-
   useEffect(() => {
     const parent = containerRef.current;
-    
-    // Create ScrollTrigger pinning timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: parent,
-        start: 'top top',
-        end: '+=200%',
-        scrub: 1.5,
-        pin: pinRef.current,
-      }
+    if (!parent) return;
+
+    const mm = gsap.matchMedia();
+
+    // Set first item as active initially
+    gsap.set(itemsRef.current[0], { color: '#F3F3F3', x: 10 });
+    gsap.set(descRef.current[0], { opacity: 1, y: 0 });
+    // Set other items as inactive
+    values.slice(1).forEach((_, oIdx) => {
+      gsap.set(itemsRef.current[oIdx + 1], { color: '#3C3C3C', x: 0 });
+      gsap.set(descRef.current[oIdx + 1], { opacity: 0, y: 20 });
     });
 
-    // Animate list items and descriptions based on scroll progress
-    values.forEach((_, idx) => {
-      if (idx === 0) {
-        // Set first item as active initially
-        gsap.set(itemsRef.current[0], { color: '#F3F3F3', x: 20 });
-        gsap.set(descRef.current[0], { opacity: 1, y: 0 });
-        // Set other items as inactive
-        values.slice(1).forEach((_, oIdx) => {
-          gsap.set(itemsRef.current[oIdx + 1], { color: '#3C3C3C', x: 0 });
-          gsap.set(descRef.current[oIdx + 1], { opacity: 0, y: 30 });
-        });
-        return;
-      }
+    // Desktop: Pin layout and transition items on scroll
+    mm.add("(min-width: 768px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: parent,
+          start: 'top top',
+          end: '+=200%',
+          scrub: 1.5,
+          pin: pinRef.current,
+          invalidateOnRefresh: true,
+        }
+      });
 
-      const prevIdx = idx - 1;
-      
-      // Transition from prev to current
-      tl.to(itemsRef.current[prevIdx], {
-        color: '#3C3C3C',
-        x: 0,
-        duration: 1.5,
-        ease: 'power2.inOut'
-      })
-      .to(descRef.current[prevIdx], {
-        opacity: 0,
-        y: -30,
-        duration: 1.5,
-        ease: 'power2.inOut'
-      }, '-=1.5')
-      .to(itemsRef.current[idx], {
-        color: '#F3F3F3',
-        x: 20,
-        duration: 1.5,
-        ease: 'power3.out'
-      }, '-=0.8')
-      .to(descRef.current[idx], {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: 'power3.out'
-      }, '-=1.5')
-      .to({}, { duration: 0.5 }); // Hold
+      values.forEach((_, idx) => {
+        if (idx === 0) return;
+        const prevIdx = idx - 1;
+        
+        tl.to(itemsRef.current[prevIdx], {
+          color: '#3C3C3C',
+          x: 0,
+          duration: 1.5,
+          ease: 'power2.inOut'
+        })
+        .to(descRef.current[prevIdx], {
+          opacity: 0,
+          y: -20,
+          duration: 1.5,
+          ease: 'power2.inOut'
+        }, '-=1.5')
+        .to(itemsRef.current[idx], {
+          color: '#F3F3F3',
+          x: 20,
+          duration: 1.5,
+          ease: 'power3.out'
+        }, '-=0.8')
+        .to(descRef.current[idx], {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: 'power3.out'
+        }, '-=1.5')
+        .to({}, { duration: 0.5 }); // Hold
+      });
+    });
+
+    // Mobile: Do not pin, cycle items naturally as page scrolls past
+    mm.add("(max-width: 767px)", () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: parent,
+          start: 'top 30%',
+          end: 'bottom 70%',
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      values.forEach((_, idx) => {
+        if (idx === 0) return;
+        const prevIdx = idx - 1;
+        
+        tl.to(itemsRef.current[prevIdx], {
+          color: '#3C3C3C',
+          x: 0,
+          duration: 1.5,
+          ease: 'power2.inOut'
+        })
+        .to(descRef.current[prevIdx], {
+          opacity: 0,
+          y: -20,
+          duration: 1.5,
+          ease: 'power2.inOut'
+        }, '-=1.5')
+        .to(itemsRef.current[idx], {
+          color: '#F3F3F3',
+          x: 10,
+          duration: 1.5,
+          ease: 'power3.out'
+        }, '-=0.8')
+        .to(descRef.current[idx], {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: 'power3.out'
+        }, '-=1.5')
+        .to({}, { duration: 0.5 }); // Hold
+      });
     });
 
     return () => {
-      tl.kill();
+      mm.revert();
     };
   }, []);
 
@@ -109,9 +155,9 @@ export default function CoreValues() {
     >
       <div
         ref={pinRef}
-        className="w-full h-screen sticky top-0 flex items-center justify-center overflow-hidden px-6 md:px-12 lg:px-24"
+        className="w-full h-screen sticky top-0 flex items-center justify-center overflow-hidden"
       >
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 w-full max-w-[1440px] mx-auto items-center select-none z-10">
+        <div className="layout-container grid grid-cols-1 md:grid-cols-12 gap-8 items-center select-none z-10">
           
           {/* Left Column: Vertical values navigation tracker */}
           <div className="col-span-1 md:col-span-5 flex flex-col space-y-6 md:space-y-10 border-l border-bmw-medium/20 pl-4 py-6">
@@ -131,7 +177,7 @@ export default function CoreValues() {
           </div>
 
           {/* Right Column: Dynamic Description Panel */}
-          <div className="col-span-1 md:col-span-7 relative h-48 md:h-64 flex items-center pl-0 md:pl-16">
+          <div className="col-span-1 md:col-span-7 relative h-56 md:h-64 flex items-center pl-0 md:pl-16">
             {values.map((v, idx) => (
               <div
                 key={idx}
