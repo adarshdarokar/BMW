@@ -78,7 +78,7 @@ export default function FinalExperience() {
         
         <h2
           ref={headlineRef}
-          className="text-5xl sm:text-7xl lg:text-9xl font-light tracking-[0.1em] font-sans uppercase leading-none mb-12"
+          className="text-3xl xs:text-5xl sm:text-7xl lg:text-9xl font-light tracking-[0.1em] font-sans uppercase leading-none mb-12"
         >
           EXPERIENCE BMW
         </h2>

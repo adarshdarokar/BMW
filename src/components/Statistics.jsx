@@ -60,7 +60,7 @@ export default function Statistics() {
     <section
       ref={containerRef}
       id="statistics"
-      className="relative w-full bg-[#131313] py-24 md:py-32"
+      className="relative w-full bg-[#131313] py-16 md:py-32"
     >
       <div className="layout-container select-none z-10 relative">
         <span className="text-[10px] tracking-[0.4em] text-bmw-light-gray uppercase font-medium mb-12 block text-center">

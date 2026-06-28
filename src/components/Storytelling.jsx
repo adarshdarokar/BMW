@@ -28,7 +28,7 @@ export default function Storytelling() {
           trigger: img1WrapperRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1.5
+          scrub: 1.0
         }
       }
     ).scrollTrigger);
@@ -42,7 +42,7 @@ export default function Storytelling() {
           trigger: img2WrapperRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: 1.5
+          scrub: 1.0
         }
       }
     ).scrollTrigger);
@@ -54,18 +54,18 @@ export default function Storytelling() {
       const elements = block.querySelectorAll('.story-anim');
       
       triggers.push(gsap.fromTo(elements,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          stagger: 0.2,
-          duration: 1.5,
+          stagger: 0.15,
+          duration: 1.2,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: block,
-            start: 'top 80%',
-            end: 'top 40%',
-            scrub: 1.5
+            start: 'top 85%',
+            end: 'top 55%',
+            scrub: 1.0
           }
         }
       ).scrollTrigger);
@@ -80,9 +80,9 @@ export default function Storytelling() {
     <section
       ref={containerRef}
       id="storytelling"
-      className="relative w-full bg-[#131313] py-24 md:py-32 overflow-hidden"
+      className="relative w-full bg-[#131313] py-16 md:py-32 overflow-hidden"
     >
-      <div className="layout-container flex flex-col space-y-24 md:space-y-40 relative z-10 select-none">
+      <div className="layout-container flex flex-col space-y-16 md:space-y-36 relative z-10 select-none">
         
         {/* Story 1: Exterior / Precision */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
@@ -126,7 +126,7 @@ export default function Storytelling() {
               ref={img1Ref}
               src="/assets/exterior.webp"
               alt="BMW M5 high-performance sports car sleek double headlight detailing"
-              className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated"
+              className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated will-change-transform"
             />
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function Storytelling() {
               ref={img2Ref}
               src="/assets/interior.webp"
               alt="BMW luxury modern vehicle interior dashboard display and leather console view"
-              className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated"
+              className="w-full h-[130%] object-cover absolute top-0 left-0 gpu-accelerated will-change-transform"
             />
           </div>
 

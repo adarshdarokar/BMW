@@ -103,7 +103,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-screen min-h-screen overflow-hidden flex flex-col justify-between py-10 z-10"
+      className="relative w-full min-h-screen overflow-hidden flex flex-col justify-between py-10 z-10"
     >
       {/* Background Video */}
       <div className="absolute inset-0 z-[-2] overflow-hidden bg-bmw-black">
@@ -130,17 +130,17 @@ export default function Hero() {
       {/* Main Typography content */}
       <div
         ref={overlayWrapperRef}
-        className="w-full max-w-[1440px] mx-auto text-center px-6 md:px-12 lg:px-24 select-none flex flex-col items-center hero-content-anim state-visible"
+        className="w-full max-w-[1440px] mx-auto text-center px-4 md:px-12 lg:px-24 select-none flex flex-col items-center hero-content-anim state-visible"
       >
         <h1
           ref={titleRef}
-          className="text-6xl sm:text-8xl lg:text-9xl font-light tracking-tight text-[#F3F3F3] font-sans leading-none mb-6 ml-[0.125em]"
+          className="text-5xl xs:text-6xl sm:text-8xl lg:text-9xl font-light tracking-tight text-[#F3F3F3] font-sans leading-none mb-6 ml-[0.125em]"
         >
           BMW
         </h1>
         <p
           ref={subtitleRef}
-          className="text-xs sm:text-sm md:text-base uppercase tracking-[0.8em] font-sans text-[#B5B5B5] ml-[0.4em] font-light"
+          className="text-[9px] sm:text-xs md:text-sm lg:text-base uppercase tracking-[0.3em] xs:tracking-[0.5em] md:tracking-[0.8em] font-sans text-[#B5B5B5] ml-[0.15em] xs:ml-[0.25em] md:ml-[0.4em] font-light"
         >
           THE ULTIMATE DRIVING MACHINE
         </p>
@@ -148,7 +148,7 @@ export default function Hero() {
 
       {/* Bottom Scroll Indicator */}
       <div className="flex flex-col items-center select-none">
-        <span className="text-[10px] tracking-[0.5em] text-[#B5B5B5] uppercase font-sans mb-6 ml-[0.25em]">
+        <span className="text-[8px] xs:text-[10px] tracking-[0.3em] xs:tracking-[0.5em] text-[#B5B5B5] uppercase font-sans mb-6 ml-[0.15em] xs:ml-[0.25em]">
           SCROLL TO EXPERIENCE
         </span>
         <div ref={lineRef} className="scroll-indicator-line" />

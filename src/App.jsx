@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
+import { gsap } from 'gsap';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
 import Hero from './components/Hero';
@@ -20,27 +21,31 @@ export default function App() {
 
     // Initialize Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 2.0,
+      duration: 1.2, // optimized duration for a fast, responsive, and premium feel
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.0,
       touchMultiplier: 1.5,
       infinite: false,
+      autoRaf: false, // Important: let GSAP's ticker drive updates
     });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Keep Lenis globally accessible (useful for triggering custom scroll events if needed)
+    // Keep Lenis globally accessible
     window.lenis = lenis;
 
+    // Sync Lenis with GSAP's ticker loop
+    const updateLenis = (time) => {
+      lenis.raf(time * 1000); // convert to milliseconds
+    };
+    gsap.ticker.add(updateLenis);
+
+    // Sync GSAP's ticker with ScrollTrigger to prevent animation drop-frames
+    gsap.ticker.lagSmoothing(0);
+
     return () => {
+      gsap.ticker.remove(updateLenis);
       lenis.destroy();
       window.lenis = null;
     };

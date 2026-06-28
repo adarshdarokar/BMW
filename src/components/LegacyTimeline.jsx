@@ -53,6 +53,8 @@ const milestones = [
   }
 ];
 
+
+
 export default function LegacyTimeline() {
   const containerRef = useRef(null);
   const pinRef = useRef(null);
@@ -63,70 +65,115 @@ export default function LegacyTimeline() {
     const scrollContainer = scrollContainerRef.current;
     if (!parent || !scrollContainer) return;
 
-    const sections = scrollContainer.querySelectorAll('.timeline-panel');
+    const mm = gsap.matchMedia();
 
-    // Horizontal scroll timeline
-    const scrollTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: parent,
-        start: 'top top',
-        end: () => `+=${scrollContainer.offsetWidth - window.innerWidth}`,
-        scrub: 1.5,
-        pin: pinRef.current,
-        invalidateOnRefresh: true,
-      }
-    });
+    // Desktop Breakpoint (Tablet Landscape and Desktop: Horizontal Scroll)
+    mm.add("(min-width: 768px)", () => {
+      const sections = scrollContainer.querySelectorAll('.timeline-panel');
 
-    // Translate horizontal container
-    scrollTl.to(scrollContainer, {
-      x: () => `-${scrollContainer.offsetWidth - window.innerWidth}px`,
-      ease: 'none'
-    });
-
-    // Interpolate background color of the pinned element
-    milestones.forEach((m, index) => {
-      if (index === 0) return;
-      
-      const prevSection = sections[index - 1];
-      
-      gsap.to(pinRef.current, {
-        backgroundColor: m.bg,
-        ease: 'power1.inOut',
+      // Horizontal scroll timeline
+      const scrollTl = gsap.timeline({
         scrollTrigger: {
-          trigger: prevSection,
-          containerAnimation: scrollTl,
-          start: 'right center',
-          end: 'right left',
+          trigger: parent,
+          start: 'top top',
+          end: () => `+=${scrollContainer.offsetWidth - window.innerWidth}`,
           scrub: 1.5,
+          pin: pinRef.current,
+          invalidateOnRefresh: true,
         }
+      });
+
+      // Translate horizontal container
+      scrollTl.to(scrollContainer, {
+        x: () => `-${scrollContainer.offsetWidth - window.innerWidth}px`,
+        ease: 'none'
+      });
+
+      // Interpolate background color of the pinned element
+      milestones.forEach((m, index) => {
+        if (index === 0) return;
+        
+        const prevSection = sections[index - 1];
+        
+        gsap.to(pinRef.current, {
+          backgroundColor: m.bg,
+          ease: 'power1.inOut',
+          scrollTrigger: {
+            trigger: prevSection,
+            containerAnimation: scrollTl,
+            start: 'right center',
+            end: 'right left',
+            scrub: 1.5,
+          }
+        });
+      });
+
+      // Fade in text elements sequentially
+      sections.forEach((sec) => {
+        const elements = sec.querySelectorAll('.timeline-anim-element');
+        
+        gsap.fromTo(elements, 
+          { opacity: 0, y: 30 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            stagger: 0.1, 
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: sec,
+              containerAnimation: scrollTl,
+              start: 'left 60%',
+              end: 'left 20%',
+              scrub: 1.5,
+            }
+          }
+        );
       });
     });
 
-    // Fade in text elements sequentially
-    sections.forEach((sec) => {
-      const elements = sec.querySelectorAll('.timeline-anim-element');
-      
-      gsap.fromTo(elements, 
-        { opacity: 0, y: 30 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          stagger: 0.1, 
-          duration: 0.8,
-          ease: 'power2.out',
+    // Mobile Breakpoint (Vertical Stack)
+    mm.add("(max-width: 767px)", () => {
+      const panels = scrollContainer.querySelectorAll('.timeline-panel');
+
+      panels.forEach((panel, index) => {
+        const milestone = milestones[index];
+        const elements = panel.querySelectorAll('.timeline-anim-element');
+
+        // Dynamically transition the parent background color as panels scroll into view
+        gsap.to(parent, {
+          backgroundColor: milestone.bg,
+          ease: 'power1.inOut',
           scrollTrigger: {
-            trigger: sec,
-            containerAnimation: scrollTl,
-            start: 'left 60%',
-            end: 'left 20%',
-            scrub: 1.5,
+            trigger: panel,
+            start: 'top 50%',
+            end: 'bottom 50%',
+            scrub: true,
           }
-        }
-      );
+        });
+
+        // Entrance fade-in for each panel's content
+        gsap.fromTo(elements,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 1.0,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: panel,
+              start: 'top 85%',
+              end: 'top 55%',
+              scrub: 1.0,
+            }
+          }
+        );
+      });
     });
 
     return () => {
-      scrollTl.kill();
+      mm.revert();
     };
   }, []);
 
@@ -134,38 +181,38 @@ export default function LegacyTimeline() {
     <section
       ref={containerRef}
       id="timeline"
-      className="relative w-full min-h-screen"
+      className="relative w-full min-h-screen bg-bmw-black transition-colors duration-500 ease-out"
     >
       <div
         ref={pinRef}
-        className="w-full h-screen sticky top-0 bg-bmw-black overflow-hidden flex items-center transition-colors duration-500 ease-out"
+        className="w-full md:h-screen md:sticky md:top-0 md:overflow-hidden flex flex-col md:flex-row md:items-center transition-colors duration-500 ease-out"
       >
         {/* Decorative Grid Lines to give that engineered, industrial look */}
-        <div className="absolute inset-0 grid grid-cols-5 pointer-events-none opacity-5 z-0">
+        <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-5 pointer-events-none opacity-5 z-0">
           <div className="border-r border-bmw-light h-full"></div>
+          <div className="border-r border-bmw-light h-full hidden md:block"></div>
           <div className="border-r border-bmw-light h-full"></div>
-          <div className="border-r border-bmw-light h-full"></div>
-          <div className="border-r border-bmw-light h-full"></div>
+          <div className="border-r border-bmw-light h-full hidden md:block"></div>
           <div></div>
         </div>
 
-        {/* Horizontal flex container */}
+        {/* Flex container: vertical on mobile, horizontal on desktop */}
         <div
           ref={scrollContainerRef}
-          className="flex h-full w-[500vw] relative z-10"
+          className="flex flex-col md:flex-row h-auto md:h-full w-full md:w-[500vw] relative z-10 py-16 md:py-0 gap-16 md:gap-0"
         >
           {milestones.map((m, idx) => (
             <div
               key={idx}
-              className="timeline-panel w-screen h-full flex items-center flex-shrink-0 select-none"
+              className="timeline-panel w-full md:w-screen h-auto md:h-full flex items-center flex-shrink-0 select-none px-6 md:px-0"
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 layout-container items-center">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 layout-container items-center w-full">
                 {/* Large Year Column */}
                 <div className="md:col-span-5 flex flex-col justify-center">
                   <span className={`timeline-anim-element gpu-accelerated text-6xl sm:text-8xl lg:text-9xl font-light font-sans tracking-tighter leading-none ${m.textColor}`}>
                     {m.year}
                   </span>
-                  <div className={`timeline-anim-element gpu-accelerated w-24 h-[1px] my-6 ${idx === 4 ? 'bg-bmw-black' : 'bg-bmw-light-gray'} opacity-50`} />
+                  <div className={`timeline-anim-element gpu-accelerated w-16 md:w-24 h-[1px] my-4 md:my-6 ${idx === 4 ? 'bg-bmw-black' : 'bg-bmw-light-gray'} opacity-50`} />
                 </div>
 
                 {/* Info details column */}
@@ -173,7 +220,7 @@ export default function LegacyTimeline() {
                   <span className={`timeline-anim-element gpu-accelerated text-[10px] tracking-[0.4em] font-medium uppercase mb-2 ${m.muteColor}`}>
                     {m.title}
                   </span>
-                  <h3 className={`timeline-anim-element gpu-accelerated text-2xl md:text-4xl font-light font-sans leading-tight mb-6 ${m.textColor}`}>
+                  <h3 className={`timeline-anim-element gpu-accelerated text-2xl md:text-4xl font-light font-sans leading-tight mb-4 md:mb-6 ${m.textColor}`}>
                     {m.subtitle}
                   </h3>
                   <p className={`timeline-anim-element gpu-accelerated text-sm sm:text-base font-light leading-relaxed max-w-xl ${m.muteColor}`}>

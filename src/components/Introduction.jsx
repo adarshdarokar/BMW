@@ -79,13 +79,18 @@ export default function Introduction() {
       display: 'none'
     });
 
-    // 1. Reveal "Bayerische Motoren Werke"
-    tl.to(getInners(bmvTextRef), {
-      y: '0%',
-      stagger: 0.02,
-      duration: 1.5,
-      ease: 'power3.out'
-    });
+    // 1. Reveal "Bayerische Motoren Werke" with custom opacity & color animation
+    tl.fromTo(getInners(bmvTextRef), 
+      { y: '100%', opacity: 0, color: '#3A3A3A' },
+      {
+        y: '0%',
+        opacity: 1,
+        color: '#E5E5E5',
+        stagger: 0.02,
+        duration: 1.5,
+        ease: 'power3.out'
+      }
+    );
 
     // Hold "Bayerische Motoren Werke"
     tl.to({}, { duration: 0.5 });
@@ -93,6 +98,8 @@ export default function Introduction() {
     // 2. Transition: "Bayerische Motoren Werke" -> display:none and show LUXURY
     tl.to(getInners(bmvTextRef), {
       y: '-100%',
+      opacity: 0,
+      color: '#3A3A3A',
       stagger: 0.015,
       duration: 1,
       ease: 'power3.in'
@@ -204,7 +211,8 @@ export default function Introduction() {
           {/* Main sequence displays */}
           <h2
             ref={bmvTextRef}
-            className="text-[5.5vw] sm:text-5xl md:text-7xl font-light tracking-[0.15em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-snug"
+            className="text-[5.5vw] sm:text-5xl md:text-7xl font-thin font-sans tracking-[0.15em] sm:tracking-[0.2em] text-[#3A3A3A] leading-snug"
+            style={{ fontWeight: 100 }}
           >
             BAYERISCHE MOTOREN WERKE
           </h2>

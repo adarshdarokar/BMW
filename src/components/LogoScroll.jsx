@@ -108,6 +108,8 @@ export default function LogoScroll() {
     verifyAndLoadAll();
   }, []);
 
+  const lastRenderedIndexRef = useRef(-1);
+
   // Phase 2: Canvas Resizing, Drawing, and GSAP ScrollTrigger Sequence
   useEffect(() => {
     if (!framesLoaded) return;
@@ -123,8 +125,12 @@ export default function LogoScroll() {
     // Track the current frame index for animations
     const frameObj = { frame: 0 };
 
-    // Fit image keeping aspect ratio centered inside canvas with padding/margin (0.7 scale)
+    // Fit image keeping aspect ratio centered inside canvas with padding/margin (1.0 scale)
     const renderFrame = (index) => {
+      if (index === lastRenderedIndexRef.current) {
+        return; // Skip redundant canvas draws to maximize frame rate
+      }
+
       const img = frames[index];
       if (!img || !img.complete || img.naturalWidth === 0) {
         return;
@@ -151,11 +157,12 @@ export default function LogoScroll() {
       const y = (canvasHeight - drawHeight) / 2;
 
       context.drawImage(img, x, y, drawWidth, drawHeight);
+      lastRenderedIndexRef.current = index;
     };
 
     // Canvas scaling to match high DPI screens without distortion/accumulation
     const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2.0 for performance on mobile
       const rect = canvas.getBoundingClientRect();
 
       if (rect.width === 0 || rect.height === 0) return;
@@ -176,7 +183,8 @@ export default function LogoScroll() {
       context.imageSmoothingEnabled = true;
       context.imageSmoothingQuality = 'high';
 
-      // Re-draw current frame immediately
+      // Re-draw current frame immediately (reset cache to force redraw on resize)
+      lastRenderedIndexRef.current = -1;
       renderFrame(Math.round(frameObj.frame));
     };
 
@@ -187,19 +195,18 @@ export default function LogoScroll() {
     resizeCanvas();
     renderFrame(0);
 
-    // Main GSAP scroll sequence
+    // Main GSAP scroll sequence - Remove snap: 'frame' for micro-smooth interpolation
     const anim = gsap.to(frameObj, {
       frame: totalFrames - 1,
-      snap: 'frame',
       ease: 'none',
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top top',
-        end: '+=150%',
-        scrub: 1.5, // cinematic scrubbing inertia
+        end: '+=180%',
+        scrub: 0.8, // cinematic scrubbing inertia (responsive catch up)
         pin: pinTargetRef.current,
         onUpdate: () => {
-          renderFrame(Math.floor(frameObj.frame));
+          renderFrame(Math.round(frameObj.frame));
         },
       },
     });
@@ -210,19 +217,21 @@ export default function LogoScroll() {
         trigger: containerRef.current,
         start: 'top 20%',
         end: 'bottom 80%',
-        scrub: 1.5,
+        scrub: 1.0,
       },
     });
 
+    // Opacity low to high (0 -> 1) and color animation (dark grey #3A3A3A -> light grey #E5E5E5)
     textAnim
       .fromTo(
         overlayRef.current,
-        { opacity: 0, y: 50 },
-        { opacity: 0.4, y: 0, ease: 'power2.out' }
+        { opacity: 0, color: '#3A3A3A', y: 30 },
+        { opacity: 1, color: '#E5E5E5', y: 0, ease: 'power2.out' }
       )
       .to(overlayRef.current, {
         opacity: 0,
-        y: -50,
+        color: '#3A3A3A',
+        y: -30,
         ease: 'power2.in',
       });
 
@@ -277,7 +286,10 @@ export default function LogoScroll() {
           ref={overlayRef}
           className="absolute bottom-12 md:bottom-16 z-20 text-center select-none w-full opacity-0"
         >
-          <h2 className="text-[10px] uppercase tracking-[0.4em] md:tracking-[0.6em] text-[#B5B5B5] font-light font-sans">
+          <h2 
+            className="text-[10px] uppercase tracking-[0.4em] md:tracking-[0.6em] font-sans font-thin"
+            style={{ fontWeight: 100 }}
+          >
             A SYMBOL OF ENGINEERING TRIUMPH
           </h2>
         </div>

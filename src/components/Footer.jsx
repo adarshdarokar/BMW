@@ -11,10 +11,10 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-[#131313] pb-6 md:pb-10 pt-12 transition-colors duration-500">
-      <div className="layout-container bg-white rounded-[24px] p-8 md:p-12 lg:p-16 flex flex-col border border-bmw-medium/10 shadow-sm text-bmw-black">
+      <div className="layout-container bg-white rounded-[24px] p-5 xs:p-8 md:p-12 lg:p-16 flex flex-col border border-bmw-medium/10 shadow-sm text-bmw-black">
         
         {/* Top Content Grid */}
-        <div className="flex flex-col lg:flex-row justify-between mb-16 gap-12 lg:gap-0 lg:px-2">
+        <div className="flex flex-col lg:flex-row justify-between mb-10 md:mb-16 gap-12 lg:gap-0 lg:px-2">
           
           {/* Left Column - Brand */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-[380px]">
@@ -82,7 +82,7 @@ export default function Footer() {
           
           <button 
             onClick={scrollToTop}
-            className="mt-6 md:mt-0 flex items-center gap-2 text-bmw-gray hover:text-bmw-black transition-colors duration-300 group outline-none"
+            className="mt-4 md:mt-0 flex items-center gap-2 text-bmw-gray hover:text-bmw-black transition-colors duration-300 group outline-none"
             aria-label="Back to Top"
           >
             <span className="font-sans">Back to Top</span>
