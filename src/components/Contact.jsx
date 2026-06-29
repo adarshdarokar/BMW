@@ -135,7 +135,7 @@ export default function Contact() {
           {/* Left / Branding Quadrant */}
           <div
             ref={brandRef}
-            className="w-full md:w-[45%] p-8 xs:p-10 md:p-16 flex flex-col justify-center z-10"
+            className="w-full md:w-[45%] p-8 xs:p-10 md:p-16 flex flex-col justify-center z-10 -mt-8 md:mt-0 rounded-t-[32px] md:rounded-t-none bg-gradient-to-br from-white to-[#FAFAFC] md:bg-none shadow-[0_-15px_30px_rgba(0,0,0,0.015)] md:shadow-none"
             style={{ opacity: 0 }}
           >
             <span className="text-[9px] uppercase tracking-[0.55em] font-semibold text-[#666666] mb-4">
@@ -162,7 +162,7 @@ export default function Contact() {
           </div>
 
           {/* Middle / Contact Buttons Quadrant */}
-          <div className="w-full md:w-[35%] p-8 xs:p-10 md:py-16 md:pr-12 md:pl-0 flex items-center z-10">
+          <div className="w-full md:w-[35%] p-8 xs:p-10 md:py-16 md:pr-12 md:pl-0 flex items-center z-10 bg-[#FAFAFC] md:bg-transparent rounded-b-[32px] md:rounded-b-none">
             {/* Vertical hairline divider with fading gradient for desktop view */}
             <div className="hidden md:block w-[1px] h-48 bg-gradient-to-b from-transparent via-neutral-200/60 to-transparent mr-12 flex-shrink-0" />
             

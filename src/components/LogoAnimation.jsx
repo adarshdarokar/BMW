@@ -51,7 +51,7 @@ export default function LogoAnimation() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen bg-[#131313] flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-[40vh] md:h-screen bg-[#131313] py-12 md:py-0 flex items-center justify-center overflow-hidden"
     >
       {/* Subtle radial backdrop glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] rounded-full bg-radial from-[#F3F3F3]/5 to-transparent pointer-events-none filter blur-3xl z-0" />
@@ -63,7 +63,7 @@ export default function LogoAnimation() {
         loop
         playsInline
         preload="auto"
-        className="w-[90vw] h-[80vh] object-contain z-10"
+        className="w-[90%] md:w-[70vw] max-w-[1000px] h-auto object-contain z-10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-neutral-800/10"
       >
         <source src="/bmw-logo-animation.mp4" type="video/mp4" />
         Your browser does not support the video tag.

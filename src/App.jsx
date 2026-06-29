@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
 import Hero from './components/Hero';
@@ -12,6 +13,8 @@ import CoreValues from './components/CoreValues';
 import Statistics from './components/Statistics';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,6 +38,11 @@ export default function App() {
     // Keep Lenis globally accessible
     window.lenis = lenis;
 
+    // Sync Lenis with ScrollTrigger updates
+    lenis.on('scroll', () => {
+      ScrollTrigger.update();
+    });
+
     // Sync Lenis with GSAP's ticker loop
     const updateLenis = (time) => {
       lenis.raf(time * 1000); // convert to milliseconds
@@ -43,6 +51,9 @@ export default function App() {
 
     // Sync GSAP's ticker with ScrollTrigger to prevent animation drop-frames
     gsap.ticker.lagSmoothing(0);
+
+    // Force ScrollTrigger to recalculate all offsets now that Lenis is loaded and classes are applied
+    ScrollTrigger.refresh();
 
     return () => {
       gsap.ticker.remove(updateLenis);
@@ -54,18 +65,21 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-bmw-black text-bmw-light overflow-x-hidden font-sans">
       <Navbar />
-      <Hero />
-      <LogoAnimation />
-      <LegacyTimeline />
-      <Philosophy />
-      <Storytelling />
-      <CoreValues />
-      <Statistics />
-      <Contact />
-      <Footer />
       
-      {isLoading && (
+      {isLoading ? (
         <Loader onComplete={() => setIsLoading(false)} />
+      ) : (
+        <>
+          <Hero />
+          <LogoAnimation />
+          <LegacyTimeline />
+          <Philosophy />
+          <Storytelling />
+          <CoreValues />
+          <Statistics />
+          <Contact />
+          <Footer />
+        </>
       )}
     </div>
   );

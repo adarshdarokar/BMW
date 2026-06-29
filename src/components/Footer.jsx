@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Footer() {
+  const [openSections, setOpenSections] = useState({});
+  const toggleSection = (section) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
   const socialIcons = [
     {
       name: 'Instagram',
@@ -33,11 +41,11 @@ export default function Footer() {
     <footer className="w-full bg-[#FAFAFA] text-[#111111] pt-16 pb-8 border-t border-neutral-200/60 font-sans">
       <div className="layout-container flex flex-col gap-12 px-6 sm:px-12 md:px-16">
         
-        {/* Main 6-Column Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 lg:gap-8">
+        {/* Main Responsive Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 lg:gap-8">
           
           {/* Column 1: Brand & Logo */}
-          <div className="flex flex-col items-start col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-1">
+          <div className="flex flex-col items-start col-span-2 md:col-span-1 border-b border-neutral-200/40 lg:border-b-0 pb-5 lg:pb-0">
             <img 
               src="/logo-bmw-company.png" 
               className="w-10 h-10 object-contain mb-4 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.03)]" 
@@ -50,21 +58,33 @@ export default function Footer() {
             <p className="text-[10px] text-[#666666] mb-2 tracking-wide font-light">
               &copy; 2024 BMW AG. All rights reserved.
             </p>
-            <div className="flex flex-wrap items-center gap-1.5 text-[9px] text-[#666666] font-light tracking-wide">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[9px] text-[#666666] font-light tracking-wide">
               <a href="#" className="hover:text-black transition-colors underline-offset-2 hover:underline">Privacy Policy</a>
-              <span>|</span>
               <a href="#" className="hover:text-black transition-colors underline-offset-2 hover:underline">Legal Notice</a>
-              <span>|</span>
               <a href="#" className="hover:text-black transition-colors underline-offset-2 hover:underline">Cookie Settings</a>
             </div>
           </div>
 
           {/* Column 2: Models */}
-          <div className="flex flex-col items-start">
-            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
-              Models
-            </h5>
-            <ul className="flex flex-col space-y-3 w-full">
+          <div className="flex flex-col items-start col-span-2 md:col-span-1 border-b border-neutral-200/40 lg:border-b-0 pb-5 lg:pb-0 w-full">
+            <div 
+              onClick={() => toggleSection('models')} 
+              className="flex items-center justify-between w-full cursor-pointer lg:cursor-default lg:pointer-events-none mb-2 lg:mb-5"
+            >
+              <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111]">
+                Models
+              </h5>
+              <svg 
+                className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-300 lg:hidden ${openSections['models'] ? 'rotate-90' : ''}`}
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5"
+              >
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            <ul className={`flex flex-col space-y-3 w-full transition-all duration-300 ${openSections['models'] ? 'block' : 'hidden lg:flex'}`}>
               {['All Models', 'BMW M', 'BMW i', 'Build Your Own', 'Compare Models'].map((item) => (
                 <li key={item} className="group flex justify-between items-center w-full">
                   <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
@@ -85,11 +105,25 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Shopping */}
-          <div className="flex flex-col items-start">
-            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
-              Shopping
-            </h5>
-            <ul className="flex flex-col space-y-3 w-full">
+          <div className="flex flex-col items-start col-span-2 md:col-span-1 border-b border-neutral-200/40 lg:border-b-0 pb-5 lg:pb-0 w-full">
+            <div 
+              onClick={() => toggleSection('shopping')} 
+              className="flex items-center justify-between w-full cursor-pointer lg:cursor-default lg:pointer-events-none mb-2 lg:mb-5"
+            >
+              <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111]">
+                Shopping
+              </h5>
+              <svg 
+                className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-300 lg:hidden ${openSections['shopping'] ? 'rotate-90' : ''}`}
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5"
+              >
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            <ul className={`flex flex-col space-y-3 w-full transition-all duration-300 ${openSections['shopping'] ? 'block' : 'hidden lg:flex'}`}>
               {['Find Your BMW', 'Build & Price', 'Offers & Finance', 'BMW Online Shop', 'Accessories'].map((item) => (
                 <li key={item} className="group flex justify-between items-center w-full">
                   <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
@@ -110,11 +144,25 @@ export default function Footer() {
           </div>
 
           {/* Column 4: Ownership */}
-          <div className="flex flex-col items-start">
-            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
-              Ownership
-            </h5>
-            <ul className="flex flex-col space-y-3 w-full">
+          <div className="flex flex-col items-start col-span-2 md:col-span-1 border-b border-neutral-200/40 lg:border-b-0 pb-5 lg:pb-0 w-full">
+            <div 
+              onClick={() => toggleSection('ownership')} 
+              className="flex items-center justify-between w-full cursor-pointer lg:cursor-default lg:pointer-events-none mb-2 lg:mb-5"
+            >
+              <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111]">
+                Ownership
+              </h5>
+              <svg 
+                className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-300 lg:hidden ${openSections['ownership'] ? 'rotate-90' : ''}`}
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5"
+              >
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            <ul className={`flex flex-col space-y-3 w-full transition-all duration-300 ${openSections['ownership'] ? 'block' : 'hidden lg:flex'}`}>
               {['BMW Service', 'BMW Warranty', 'Roadside Assistance', 'My BMW App', 'Manuals & Guides'].map((item) => (
                 <li key={item} className="group flex justify-between items-center w-full">
                   <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
@@ -135,11 +183,25 @@ export default function Footer() {
           </div>
 
           {/* Column 5: Discover */}
-          <div className="flex flex-col items-start">
-            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
-              Discover
-            </h5>
-            <ul className="flex flex-col space-y-3 w-full">
+          <div className="flex flex-col items-start col-span-2 md:col-span-1 border-b border-neutral-200/40 lg:border-b-0 pb-5 lg:pb-0 w-full">
+            <div 
+              onClick={() => toggleSection('discover')} 
+              className="flex items-center justify-between w-full cursor-pointer lg:cursor-default lg:pointer-events-none mb-2 lg:mb-5"
+            >
+              <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111]">
+                Discover
+              </h5>
+              <svg 
+                className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-300 lg:hidden ${openSections['discover'] ? 'rotate-90' : ''}`}
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.5"
+              >
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+            <ul className={`flex flex-col space-y-3 w-full transition-all duration-300 ${openSections['discover'] ? 'block' : 'hidden lg:flex'}`}>
               {['BMW Innovation', 'Sustainability', 'BMW Welt', 'Company', 'Careers'].map((item) => (
                 <li key={item} className="group flex justify-between items-center w-full">
                   <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
@@ -160,7 +222,7 @@ export default function Footer() {
           </div>
 
           {/* Column 6: Stay Connected */}
-          <div className="flex flex-col items-start">
+          <div className="flex flex-col items-start col-span-2 md:col-span-1 pt-5 lg:pt-0">
             <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
               Stay Connected
             </h5>
@@ -196,7 +258,7 @@ export default function Footer() {
         {/* Bottom Disclaimer */}
         <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-neutral-200/60 to-transparent mt-4" />
         
-        <div className="flex items-center justify-center gap-2 text-[10px] font-light tracking-wide text-[#666666]">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-[10px] font-light tracking-wide text-[#666666] text-center px-4">
           <svg 
             width="12" 
             height="12" 
@@ -206,7 +268,7 @@ export default function Footer() {
             strokeWidth="2" 
             strokeLinecap="round" 
             strokeLinejoin="round"
-            className="text-neutral-400"
+            className="text-neutral-400 flex-shrink-0"
           >
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />

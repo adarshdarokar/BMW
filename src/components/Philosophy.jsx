@@ -161,21 +161,21 @@ export default function Philosophy() {
           
           <h2
             ref={text1Ref}
-            className="text-[7.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.15em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full py-4 md:py-0"
+            className="text-[6.5vw] xs:text-[5.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.08em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full py-4 md:py-0"
           >
             DRIVEN BY PERFECTION
           </h2>
 
           <h2
             ref={text2Ref}
-            className="text-[7.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.15em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full py-4 md:py-0"
+            className="text-[6.5vw] xs:text-[5.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.08em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full py-4 md:py-0"
           >
             ENGINEERED FOR EMOTION
           </h2>
 
           <h2
             ref={text3Ref}
-            className="text-[7.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.15em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full text-stroke-medium py-4 md:py-0"
+            className="text-[6.5vw] xs:text-[5.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.08em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full text-stroke-medium py-4 md:py-0"
           >
             DESIGNED FOR THE FUTURE
           </h2>
