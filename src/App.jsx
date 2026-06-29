@@ -4,8 +4,7 @@ import { gsap } from 'gsap';
 import Navbar from './components/Navbar';
 import Loader from './components/Loader';
 import Hero from './components/Hero';
-import LogoScroll from './components/LogoScroll';
-import Introduction from './components/Introduction';
+import LogoAnimation from './components/LogoAnimation';
 import LegacyTimeline from './components/LegacyTimeline';
 import Philosophy from './components/Philosophy';
 import Storytelling from './components/Storytelling';
@@ -55,8 +54,7 @@ export default function App() {
     <div className="relative min-h-screen bg-bmw-black text-bmw-light overflow-x-hidden font-sans">
       <Navbar />
       <Hero />
-      <LogoScroll />
-      <Introduction />
+      <LogoAnimation />
       <LegacyTimeline />
       <Philosophy />
       <Storytelling />

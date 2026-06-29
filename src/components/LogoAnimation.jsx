@@ -1,0 +1,56 @@
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function LogoAnimation() {
+  const containerRef = useRef(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 2.0; // Play the video at 2x speed as requested
+    }
+
+    // Premium entrance animation for the video on scroll
+    gsap.fromTo(
+      videoRef.current,
+      { opacity: 0, scale: 0.98 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 60%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+  }, []);
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative w-full h-screen bg-[#131313] flex items-center justify-center overflow-hidden"
+    >
+      {/* Subtle radial backdrop glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] rounded-full bg-radial from-[#F3F3F3]/5 to-transparent pointer-events-none filter blur-3xl z-0" />
+
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="w-[90vw] h-[80vh] object-contain z-10"
+      >
+        <source src="/bmw-logo-animation.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </section>
+  );
+}

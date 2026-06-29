@@ -10,7 +10,6 @@ export default function Introduction() {
   const titleContainerRef = useRef(null);
   
   // Refs for words to cycle through
-  const bmvTextRef = useRef(null);
   const word1Ref = useRef(null); // Luxury
   const word2Ref = useRef(null); // Innovation
   const word3Ref = useRef(null); // Performance
@@ -53,7 +52,6 @@ export default function Introduction() {
     };
 
     // Split all our text targets
-    splitTextToSpans(bmvTextRef.current);
     splitTextToSpans(word1Ref.current);
     splitTextToSpans(word2Ref.current);
     splitTextToSpans(word3Ref.current);
@@ -73,50 +71,21 @@ export default function Introduction() {
 
     const getInners = (ref) => ref.current?.querySelectorAll('span span') || [];
 
-    // Reset styles initially (hide everything except first text)
+    // Reset styles initially (hide all words)
     gsap.set([word1Ref.current, word2Ref.current, word3Ref.current, word4Ref.current, word5Ref.current], {
       opacity: 0,
       display: 'none'
     });
 
-    // 1. Reveal "Bayerische Motoren Werke" with custom opacity & color animation
-    tl.fromTo(getInners(bmvTextRef), 
-      { y: '100%', opacity: 0, color: '#3A3A3A' },
-      {
+    // 1. Reveal LUXURY
+    tl.set(word1Ref.current, { display: 'block', opacity: 1 })
+      .to(getInners(word1Ref), {
         y: '0%',
-        opacity: 1,
-        color: '#E5E5E5',
-        stagger: 0.02,
+        stagger: 0.03,
         duration: 1.5,
-        ease: 'power3.out'
-      }
-    );
-
-    // Hold "Bayerische Motoren Werke"
-    tl.to({}, { duration: 0.5 });
-
-    // 2. Transition: "Bayerische Motoren Werke" -> display:none and show LUXURY
-    tl.to(getInners(bmvTextRef), {
-      y: '-100%',
-      opacity: 0,
-      color: '#3A3A3A',
-      stagger: 0.015,
-      duration: 1,
-      ease: 'power3.in'
-    })
-    .to(bmvTextRef.current, {
-      opacity: 0,
-      duration: 0.2
-    })
-    // Setup Luxury
-    .set(word1Ref.current, { display: 'block', opacity: 1 })
-    .to(getInners(word1Ref), {
-      y: '0%',
-      stagger: 0.03,
-      duration: 1.5,
-      ease: 'power4.out'
-    }, '-=0.2')
-    .to({}, { duration: 0.5 }); // Hold Luxury
+        ease: 'power4.out'
+      })
+      .to({}, { duration: 0.5 }); // Hold Luxury
 
     // 3. Luxury -> Innovation
     tl.to(getInners(word1Ref), {
@@ -209,14 +178,6 @@ export default function Introduction() {
           className="layout-container text-center select-none"
         >
           {/* Main sequence displays */}
-          <h2
-            ref={bmvTextRef}
-            className="text-[5.5vw] sm:text-5xl md:text-7xl font-thin font-sans tracking-[0.15em] sm:tracking-[0.2em] text-[#3A3A3A] leading-snug"
-            style={{ fontWeight: 100 }}
-          >
-            BAYERISCHE MOTOREN WERKE
-          </h2>
-
           <h2
             ref={word1Ref}
             className="text-[9vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.15em] sm:tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none"

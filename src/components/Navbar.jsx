@@ -127,17 +127,11 @@ export default function Navbar() {
               className="flex items-center shrink-0 cursor-pointer outline-none select-none transition-all duration-300 hover:opacity-80"
               aria-label="BMW Home"
             >
-              <svg className="w-12 h-12 text-white fill-current logo-rotate" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="2.5"/>
-                <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M50,50 L50,12 A38,38 0 0,1 88,50 Z" fill="currentColor"/>
-                <path d="M50,50 L12,50 A38,38 0 0,1 50,12 Z" fill="none"/>
-                <path d="M50,50 L50,88 A38,38 0 0,1 12,50 Z" fill="currentColor"/>
-                <path d="M50,50 L88,50 A38,38 0 0,1 50,88 Z" fill="none"/>
-                <text x="32" y="38" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor" transform="rotate(-35, 32, 38)">B</text>
-                <text x="46" y="27" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor">M</text>
-                <text x="61" y="34" fontSize="12" fontWeight="700" fontFamily="Outfit, sans-serif" fill="currentColor" transform="rotate(35, 61, 34)">W</text>
-              </svg>
+              <img
+                src="/logo-bmw-company.png"
+                alt="BMW Logo"
+                className="w-12 h-12 object-contain logo-rotate"
+              />
             </button>
 
             {/* Right: Menu Button - Naturally aligned via Flexbox container layout */}
