@@ -9,8 +9,25 @@ export default function LogoAnimation() {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 2.0; // Play the video at 2x speed as requested
+    const video = videoRef.current;
+    if (video) {
+      video.playbackRate = 2.0; // Play the video at 2x speed as requested
+
+      const forcePlay = () => {
+        video.play().catch(err => {
+          console.warn("Retrying video play:", err);
+        });
+      };
+
+      // Force play on load, fallback to user interactions if blocked by browser policy
+      video.play().catch(() => {
+        const interactionEvents = ['click', 'touchstart', 'scroll'];
+        const playOnInteraction = () => {
+          forcePlay();
+          interactionEvents.forEach(evt => window.removeEventListener(evt, playOnInteraction));
+        };
+        interactionEvents.forEach(evt => window.addEventListener(evt, playOnInteraction, { passive: true }));
+      });
     }
 
     // Premium entrance animation for the video on scroll

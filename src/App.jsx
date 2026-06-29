@@ -10,7 +10,8 @@ import Philosophy from './components/Philosophy';
 import Storytelling from './components/Storytelling';
 import CoreValues from './components/CoreValues';
 import Statistics from './components/Statistics';
-import FinalExperience from './components/FinalExperience';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +61,8 @@ export default function App() {
       <Storytelling />
       <CoreValues />
       <Statistics />
-      <FinalExperience />
+      <Contact />
+      <Footer />
       
       {isLoading && (
         <Loader onComplete={() => setIsLoading(false)} />

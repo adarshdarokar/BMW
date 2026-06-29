@@ -43,88 +43,59 @@ export default function CoreValues() {
     const parent = containerRef.current;
     if (!parent) return;
 
-    const mm = gsap.matchMedia();
-
-    // Desktop: Pin layout and transition items on scroll
-    mm.add("(min-width: 768px)", () => {
-      // Set first item as active initially
-      gsap.set(itemsRef.current[0], { color: '#F3F3F3', x: 10 });
-      gsap.set(descRef.current[0], { opacity: 1, y: 0 });
-      // Set other items as inactive
-      values.slice(1).forEach((_, oIdx) => {
-        gsap.set(itemsRef.current[oIdx + 1], { color: '#3C3C3C', x: 0 });
-        gsap.set(descRef.current[oIdx + 1], { opacity: 0, y: 20 });
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: parent,
-          start: 'top top',
-          end: '+=200%',
-          scrub: 1.5,
-          pin: pinRef.current,
-          invalidateOnRefresh: true,
-        }
-      });
-
-      values.forEach((_, idx) => {
-        if (idx === 0) return;
-        const prevIdx = idx - 1;
-        
-        tl.to(itemsRef.current[prevIdx], {
-          color: '#3C3C3C',
-          x: 0,
-          duration: 1.5,
-          ease: 'power2.inOut'
-        })
-        .to(descRef.current[prevIdx], {
-          opacity: 0,
-          y: -20,
-          duration: 1.5,
-          ease: 'power2.inOut'
-        }, '-=1.5')
-        .to(itemsRef.current[idx], {
-          color: '#F3F3F3',
-          x: 20,
-          duration: 1.5,
-          ease: 'power3.out'
-        }, '-=0.8')
-        .to(descRef.current[idx], {
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: 'power3.out'
-        }, '-=1.5')
-        .to({}, { duration: 0.5 }); // Hold
-      });
+    // Set first item as active initially
+    gsap.set(itemsRef.current[0], { color: '#F3F3F3', x: 10 });
+    gsap.set(descRef.current[0], { opacity: 1, y: 0 });
+    // Set other items as inactive
+    values.slice(1).forEach((_, oIdx) => {
+      gsap.set(itemsRef.current[oIdx + 1], { color: '#3C3C3C', x: 0 });
+      gsap.set(descRef.current[oIdx + 1], { opacity: 0, y: 20 });
     });
 
-    // Mobile: Render cards sequentially fading in as they scroll in
-    mm.add("(max-width: 767px)", () => {
-      values.forEach((_, idx) => {
-        const card = mobileCardsRef.current[idx];
-        if (!card) return;
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: parent,
+        start: 'top top',
+        end: '+=350%',
+        scrub: 1.5,
+        pin: pinRef.current,
+        invalidateOnRefresh: true,
+      }
+    });
 
-        gsap.fromTo(card,
-          { opacity: 0, y: 25 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.0,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              end: 'top 60%',
-              scrub: 1.0,
-            }
-          }
-        );
-      });
+    values.forEach((_, idx) => {
+      if (idx === 0) return;
+      const prevIdx = idx - 1;
+      
+      tl.to(itemsRef.current[prevIdx], {
+        color: '#3C3C3C',
+        x: 0,
+        duration: 1.5,
+        ease: 'power2.inOut'
+      })
+      .to(descRef.current[prevIdx], {
+        opacity: 0,
+        y: -20,
+        duration: 1.5,
+        ease: 'power2.inOut'
+      }, '-=1.5')
+      .to(itemsRef.current[idx], {
+        color: '#F3F3F3',
+        x: 20,
+        duration: 1.5,
+        ease: 'power3.out'
+      }, '-=0.8')
+      .to(descRef.current[idx], {
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
+        ease: 'power3.out'
+      }, '-=1.5')
+      .to({}, { duration: 0.5 }); // Hold
     });
 
     return () => {
-      mm.revert();
+      tl.kill();
     };
   }, []);
 
@@ -136,43 +107,21 @@ export default function CoreValues() {
     >
       <div
         ref={pinRef}
-        className="w-full md:h-screen md:sticky md:top-0 flex items-center justify-center md:overflow-hidden"
+        className="w-full h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Mobile Layout: A vertical stack of cards */}
-        <div className="flex md:hidden flex-col gap-10 layout-container select-none z-10 w-full py-16">
-          {values.map((v, idx) => (
-            <div 
-              key={idx}
-              ref={el => mobileCardsRef.current[idx] = el}
-              className="flex flex-col border-l border-bmw-medium/40 pl-4 py-4"
-            >
-              <div className="flex items-baseline gap-4 mb-2">
-                <span className="text-xs font-mono tracking-widest text-bmw-gray">{v.num}</span>
-                <h3 className="text-xl font-light font-sans text-bmw-light tracking-wide">{v.title}</h3>
-              </div>
-              <span className="text-[9px] tracking-[0.3em] font-medium text-bmw-light-gray uppercase mb-2">
-                CORE BRAND PILLAR
-              </span>
-              <p className="text-sm font-light leading-relaxed text-bmw-light-gray/80">
-                {v.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Desktop Layout: Pinned tracker */}
-        <div className="hidden md:grid grid-cols-12 gap-8 items-center layout-container select-none z-10 w-full">
+        {/* Dynamic side-by-side tracker on all devices */}
+        <div className="grid grid-cols-12 gap-4 sm:gap-8 items-center layout-container select-none z-10 w-full">
           
           {/* Left Column: Vertical values navigation tracker */}
-          <div className="col-span-5 flex flex-col space-y-10 border-l border-bmw-medium/20 pl-4 py-6">
+          <div className="col-span-5 flex flex-col space-y-6 sm:space-y-10 border-l border-bmw-medium/20 pl-3 sm:pl-4 py-6">
             {values.map((v, idx) => (
               <div
                 key={idx}
                 ref={el => itemsRef.current[idx] = el}
-                className="flex items-center space-x-6 text-4xl font-light font-sans tracking-wider cursor-default origin-left transition-all duration-300"
+                className="flex items-center space-x-3 sm:space-x-6 text-base sm:text-2xl md:text-4xl font-light font-sans tracking-wider cursor-default origin-left transition-all duration-300"
                 style={{ color: '#3C3C3C' }}
               >
-                <span className="text-sm font-mono tracking-widest text-bmw-gray">
+                <span className="text-[10px] sm:text-sm font-mono tracking-widest text-bmw-gray">
                   {v.num}
                 </span>
                 <span>{v.title}</span>
@@ -181,17 +130,17 @@ export default function CoreValues() {
           </div>
 
           {/* Right Column: Dynamic Description Panel */}
-          <div className="col-span-7 relative h-64 flex items-center pl-16">
+          <div className="col-span-7 relative min-h-[260px] sm:h-64 flex items-center pl-6 sm:pl-16">
             {values.map((v, idx) => (
               <div
                 key={idx}
                 ref={el => descRef.current[idx] = el}
-                className="absolute w-full flex flex-col justify-center pointer-events-none opacity-0 translate-y-8"
+                className="absolute w-full flex flex-col justify-center pointer-events-none opacity-0 translate-y-8 pr-4"
               >
-                <span className="text-[10px] tracking-[0.4em] font-medium text-bmw-light-gray uppercase mb-3">
+                <span className="text-[9px] sm:text-[10px] tracking-[0.4em] font-medium text-bmw-light-gray uppercase mb-3">
                   CORE BRAND PILLAR
                 </span>
-                <p className="text-2xl font-light leading-relaxed text-bmw-light-gray max-w-xl">
+                <p className="text-xs sm:text-lg md:text-2xl font-light leading-relaxed text-bmw-light-gray max-w-xl">
                   {v.desc}
                 </p>
               </div>

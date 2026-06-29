@@ -65,115 +65,70 @@ export default function LegacyTimeline() {
     const scrollContainer = scrollContainerRef.current;
     if (!parent || !scrollContainer) return;
 
-    const mm = gsap.matchMedia();
+    const sections = scrollContainer.querySelectorAll('.timeline-panel');
 
-    // Desktop Breakpoint (Tablet Landscape and Desktop: Horizontal Scroll)
-    mm.add("(min-width: 768px)", () => {
-      const sections = scrollContainer.querySelectorAll('.timeline-panel');
+    // Horizontal scroll timeline
+    const scrollTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: parent,
+        start: 'top top',
+        end: () => `+=${Math.max(scrollContainer.offsetWidth - window.innerWidth, window.innerHeight * 3.5)}`,
+        scrub: 1.5,
+        pin: pinRef.current,
+        invalidateOnRefresh: true,
+      }
+    });
 
-      // Horizontal scroll timeline
-      const scrollTl = gsap.timeline({
+    // Translate horizontal container
+    scrollTl.to(scrollContainer, {
+      x: () => `-${scrollContainer.offsetWidth - window.innerWidth}px`,
+      ease: 'none'
+    });
+
+    // Interpolate background color of the pinned element
+    milestones.forEach((m, index) => {
+      if (index === 0) return;
+      
+      const prevSection = sections[index - 1];
+      
+      gsap.to(pinRef.current, {
+        backgroundColor: m.bg,
+        ease: 'power1.inOut',
         scrollTrigger: {
-          trigger: parent,
-          start: 'top top',
-          end: () => `+=${scrollContainer.offsetWidth - window.innerWidth}`,
+          trigger: prevSection,
+          containerAnimation: scrollTl,
+          start: 'right center',
+          end: 'right left',
           scrub: 1.5,
-          pin: pinRef.current,
-          invalidateOnRefresh: true,
         }
-      });
-
-      // Translate horizontal container
-      scrollTl.to(scrollContainer, {
-        x: () => `-${scrollContainer.offsetWidth - window.innerWidth}px`,
-        ease: 'none'
-      });
-
-      // Interpolate background color of the pinned element
-      milestones.forEach((m, index) => {
-        if (index === 0) return;
-        
-        const prevSection = sections[index - 1];
-        
-        gsap.to(pinRef.current, {
-          backgroundColor: m.bg,
-          ease: 'power1.inOut',
-          scrollTrigger: {
-            trigger: prevSection,
-            containerAnimation: scrollTl,
-            start: 'right center',
-            end: 'right left',
-            scrub: 1.5,
-          }
-        });
-      });
-
-      // Fade in text elements sequentially
-      sections.forEach((sec) => {
-        const elements = sec.querySelectorAll('.timeline-anim-element');
-        
-        gsap.fromTo(elements, 
-          { opacity: 0, y: 30 },
-          { 
-            opacity: 1, 
-            y: 0, 
-            stagger: 0.1, 
-            duration: 0.8,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: sec,
-              containerAnimation: scrollTl,
-              start: 'left 60%',
-              end: 'left 20%',
-              scrub: 1.5,
-            }
-          }
-        );
       });
     });
 
-    // Mobile Breakpoint (Vertical Stack)
-    mm.add("(max-width: 767px)", () => {
-      const panels = scrollContainer.querySelectorAll('.timeline-panel');
-
-      panels.forEach((panel, index) => {
-        const milestone = milestones[index];
-        const elements = panel.querySelectorAll('.timeline-anim-element');
-
-        // Dynamically transition the parent background color as panels scroll into view
-        gsap.to(parent, {
-          backgroundColor: milestone.bg,
-          ease: 'power1.inOut',
+    // Fade in text elements sequentially
+    sections.forEach((sec) => {
+      const elements = sec.querySelectorAll('.timeline-anim-element');
+      
+      gsap.fromTo(elements, 
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          stagger: 0.1, 
+          duration: 0.8,
+          ease: 'power2.out',
           scrollTrigger: {
-            trigger: panel,
-            start: 'top 50%',
-            end: 'bottom 50%',
-            scrub: true,
+            trigger: sec,
+            containerAnimation: scrollTl,
+            start: 'left 60%',
+            end: 'left 20%',
+            scrub: 1.5,
           }
-        });
-
-        // Entrance fade-in for each panel's content
-        gsap.fromTo(elements,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.1,
-            duration: 1.0,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: panel,
-              start: 'top 85%',
-              end: 'top 55%',
-              scrub: 1.0,
-            }
-          }
-        );
-      });
+        }
+      );
     });
 
     return () => {
-      mm.revert();
+      scrollTl.kill();
     };
   }, []);
 
@@ -185,26 +140,26 @@ export default function LegacyTimeline() {
     >
       <div
         ref={pinRef}
-        className="w-full md:h-screen md:sticky md:top-0 md:overflow-hidden flex flex-col md:flex-row md:items-center transition-colors duration-500 ease-out"
+        className="w-full h-screen overflow-hidden flex flex-row items-center transition-colors duration-500 ease-out"
       >
         {/* Decorative Grid Lines to give that engineered, industrial look */}
-        <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-5 pointer-events-none opacity-5 z-0">
+        <div className="absolute inset-0 grid grid-cols-5 pointer-events-none opacity-5 z-0">
           <div className="border-r border-bmw-light h-full"></div>
-          <div className="border-r border-bmw-light h-full hidden md:block"></div>
           <div className="border-r border-bmw-light h-full"></div>
-          <div className="border-r border-bmw-light h-full hidden md:block"></div>
+          <div className="border-r border-bmw-light h-full"></div>
+          <div className="border-r border-bmw-light h-full"></div>
           <div></div>
         </div>
 
-        {/* Flex container: vertical on mobile, horizontal on desktop */}
+        {/* Flex container: horizontal on all devices */}
         <div
           ref={scrollContainerRef}
-          className="flex flex-col md:flex-row h-auto md:h-full w-full md:w-[500vw] relative z-10 py-16 md:py-0 gap-16 md:gap-0"
+          className="flex flex-row h-full w-[500vw] relative z-10"
         >
           {milestones.map((m, idx) => (
             <div
               key={idx}
-              className="timeline-panel w-full md:w-screen h-auto md:h-full flex items-center flex-shrink-0 select-none px-6 md:px-0"
+              className="timeline-panel w-screen h-full flex items-center flex-shrink-0 select-none px-6 md:px-0"
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 layout-container items-center w-full">
                 {/* Large Year Column */}

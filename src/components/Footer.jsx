@@ -1,93 +1,217 @@
 import React from 'react';
 
 export default function Footer() {
-  const scrollToTop = () => {
-    if (window.lenis) {
-      window.lenis.scrollTo(0, { duration: 1.5 });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  const socialIcons = [
+    {
+      name: 'Instagram',
+      url: 'https://www.instagram.com/bmw/',
+      path: 'M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z M17.5 6.5h.01'
+    },
+    {
+      name: 'YouTube',
+      url: 'https://www.youtube.com/user/BMW',
+      path: 'M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z'
+    },
+    {
+      name: 'Facebook',
+      url: 'https://www.facebook.com/BMW/',
+      path: 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z'
+    },
+    {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/company/bmwgroup',
+      path: 'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z M2 9h4v12H2z M4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z'
+    },
+    {
+      name: 'X',
+      url: 'https://x.com/BMW',
+      path: 'M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768M20 4l-6.768 6.768'
     }
-  };
+  ];
 
   return (
-    <footer className="w-full bg-[#131313] pb-6 md:pb-10 pt-12 transition-colors duration-500">
-      <div className="layout-container bg-white rounded-[24px] p-5 xs:p-8 md:p-12 lg:p-16 flex flex-col border border-bmw-medium/10 shadow-sm text-bmw-black">
+    <footer className="w-full bg-[#FAFAFA] text-[#111111] pt-16 pb-8 border-t border-neutral-200/60 font-sans">
+      <div className="layout-container flex flex-col gap-12 px-6 sm:px-12 md:px-16">
         
-        {/* Top Content Grid */}
-        <div className="flex flex-col lg:flex-row justify-between mb-10 md:mb-16 gap-12 lg:gap-0 lg:px-2">
+        {/* Main 6-Column Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 lg:gap-8">
           
-          {/* Left Column - Brand */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left max-w-[380px]">
-            <h3 className="text-[20px] font-medium tracking-[0.4em] mb-5 text-bmw-black uppercase font-sans">B M W</h3>
-            <p className="text-[14px] leading-[1.7] text-bmw-gray mb-8 font-normal font-sans">
-              Pioneering the future of luxury mobility. Crafted with precision, driven by passion, and engineered for those who demand perfection.
+          {/* Column 1: Brand & Logo */}
+          <div className="flex flex-col items-start col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-1">
+            <img 
+              src="/logo-bmw-company.png" 
+              className="w-10 h-10 object-contain mb-4 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.03)]" 
+              alt="BMW Logo" 
+            />
+            <h4 className="text-[12px] font-normal tracking-wide mb-3 text-[#111111]">
+              Sheer Driving <span className="font-semibold">Pleasure</span>
+            </h4>
+            <div className="w-full max-w-[150px] h-[1px] bg-neutral-200/60 mb-4" />
+            <p className="text-[10px] text-[#666666] mb-2 tracking-wide font-light">
+              &copy; 2024 BMW AG. All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
-              {/* Instagram Outline */}
-              <a href="https://www.instagram.com/bmw/" target="_blank" rel="noopener noreferrer" className="text-bmw-black hover:opacity-70 transition-opacity outline-none" aria-label="Instagram">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              </a>
-              {/* Twitter/X Outline */}
-              <a href="https://x.com/BMW" target="_blank" rel="noopener noreferrer" className="text-bmw-black hover:opacity-70 transition-opacity outline-none" aria-label="Twitter">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-              </a>
-              {/* YouTube Outline */}
-              <a href="https://www.youtube.com/user/BMW" target="_blank" rel="noopener noreferrer" className="text-bmw-black hover:opacity-70 transition-opacity outline-none" aria-label="YouTube">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-              </a>
-              {/* LinkedIn Outline */}
-              <a href="https://www.linkedin.com/company/bmwgroup" target="_blank" rel="noopener noreferrer" className="text-bmw-black hover:opacity-70 transition-opacity outline-none" aria-label="LinkedIn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              </a>
+            <div className="flex flex-wrap items-center gap-1.5 text-[9px] text-[#666666] font-light tracking-wide">
+              <a href="#" className="hover:text-black transition-colors underline-offset-2 hover:underline">Privacy Policy</a>
+              <span>|</span>
+              <a href="#" className="hover:text-black transition-colors underline-offset-2 hover:underline">Legal Notice</a>
+              <span>|</span>
+              <a href="#" className="hover:text-black transition-colors underline-offset-2 hover:underline">Cookie Settings</a>
             </div>
           </div>
-          
-          <div className="flex flex-col sm:flex-row gap-12 sm:gap-16 lg:gap-24 justify-center lg:justify-end lg:pr-8">
-            {/* Middle Column - Connect */}
-            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-              <h4 className="text-[13px] font-bold tracking-[0.1em] text-bmw-black uppercase mb-6 font-sans">CONNECT</h4>
-              <ul className="space-y-4">
-                {['Instagram', 'Twitter', 'YouTube', 'LinkedIn'].map((social) => (
-                  <li key={social}>
-                    <a href="#" className="text-[14px] font-medium text-bmw-gray hover:text-bmw-black transition-colors duration-300 outline-none">
-                      {social}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
 
-            {/* Right Column - Company */}
-            <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-              <h4 className="text-[13px] font-bold tracking-[0.1em] text-bmw-black uppercase mb-6 font-sans">COMPANY</h4>
-              <ul className="space-y-4">
-                {['Contact Us', 'Careers', 'Press', 'Legal & Privacy'].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-[14px] font-medium text-bmw-gray hover:text-bmw-black transition-colors duration-300 outline-none">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Column 2: Models */}
+          <div className="flex flex-col items-start">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
+              Models
+            </h5>
+            <ul className="flex flex-col space-y-3 w-full">
+              {['All Models', 'BMW M', 'BMW i', 'Build Your Own', 'Compare Models'].map((item) => (
+                <li key={item} className="group flex justify-between items-center w-full">
+                  <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
+                    {item}
+                  </a>
+                  <svg 
+                    className="w-2.5 h-2.5 text-neutral-300 group-hover:text-black group-hover:translate-x-0.5 transition-all duration-300" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="3"
+                  >
+                    <path d="M9 5l7 7-7 7" />
+                  </svg>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Shopping */}
+          <div className="flex flex-col items-start">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
+              Shopping
+            </h5>
+            <ul className="flex flex-col space-y-3 w-full">
+              {['Find Your BMW', 'Build & Price', 'Offers & Finance', 'BMW Online Shop', 'Accessories'].map((item) => (
+                <li key={item} className="group flex justify-between items-center w-full">
+                  <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
+                    {item}
+                  </a>
+                  <svg 
+                    className="w-2.5 h-2.5 text-neutral-300 group-hover:text-black group-hover:translate-x-0.5 transition-all duration-300" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="3"
+                  >
+                    <path d="M9 5l7 7-7 7" />
+                  </svg>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Ownership */}
+          <div className="flex flex-col items-start">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
+              Ownership
+            </h5>
+            <ul className="flex flex-col space-y-3 w-full">
+              {['BMW Service', 'BMW Warranty', 'Roadside Assistance', 'My BMW App', 'Manuals & Guides'].map((item) => (
+                <li key={item} className="group flex justify-between items-center w-full">
+                  <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
+                    {item}
+                  </a>
+                  <svg 
+                    className="w-2.5 h-2.5 text-neutral-300 group-hover:text-black group-hover:translate-x-0.5 transition-all duration-300" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="3"
+                  >
+                    <path d="M9 5l7 7-7 7" />
+                  </svg>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 5: Discover */}
+          <div className="flex flex-col items-start">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
+              Discover
+            </h5>
+            <ul className="flex flex-col space-y-3 w-full">
+              {['BMW Innovation', 'Sustainability', 'BMW Welt', 'Company', 'Careers'].map((item) => (
+                <li key={item} className="group flex justify-between items-center w-full">
+                  <a href="#" className="text-[12px] font-light tracking-wide text-[#666666] group-hover:text-black hover:underline underline-offset-4 transition-all duration-300">
+                    {item}
+                  </a>
+                  <svg 
+                    className="w-2.5 h-2.5 text-neutral-300 group-hover:text-black group-hover:translate-x-0.5 transition-all duration-300" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="3"
+                  >
+                    <path d="M9 5l7 7-7 7" />
+                  </svg>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 6: Stay Connected */}
+          <div className="flex flex-col items-start">
+            <h5 className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#111111] mb-5">
+              Stay Connected
+            </h5>
+            <div className="grid grid-cols-3 gap-3">
+              {socialIcons.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#666666] hover:bg-[#111111] hover:text-white hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-300 border border-neutral-200/40 shadow-[0_4px_12px_rgba(0,0,0,0.02)] outline-none"
+                  aria-label={social.name}
+                >
+                  <svg 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <path d={social.path} />
+                  </svg>
+                </a>
+              ))}
             </div>
           </div>
+
         </div>
 
-        {/* Divider */}
-        <div className="w-full h-[1px] bg-bmw-medium/10 mb-8"></div>
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-[13px] font-medium text-bmw-gray lg:px-2">
-          <p className="font-sans">© 2026 BMW AG. ALL RIGHTS RESERVED.</p>
-          
-          <button 
-            onClick={scrollToTop}
-            className="mt-4 md:mt-0 flex items-center gap-2 text-bmw-gray hover:text-bmw-black transition-colors duration-300 group outline-none"
-            aria-label="Back to Top"
+        {/* Bottom Disclaimer */}
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-neutral-200/60 to-transparent mt-4" />
+        
+        <div className="flex items-center justify-center gap-2 text-[10px] font-light tracking-wide text-[#666666]">
+          <svg 
+            width="12" 
+            height="12" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            className="text-neutral-400"
           >
-            <span className="font-sans">Back to Top</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:-translate-y-1"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-          </button>
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <span>Your data is safe with us. BMW Group takes your privacy very seriously.</span>
         </div>
 
       </div>
