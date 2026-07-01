@@ -26,7 +26,9 @@ export default function Loader({ onComplete }) {
     // 2. Preload website assets and simulate progress smoothly
     const assetsToPreload = [
       '/assets/exterior.webp',
-      '/assets/interior.webp'
+      '/assets/interior.webp',
+      '/assets/bmw-m5-rear.webp',
+      '/logo-bmw-company.png'
     ];
 
     assetsToPreload.forEach(src => {

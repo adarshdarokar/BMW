@@ -4,6 +4,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const SplitText = React.forwardRef(({ text, className }, ref) => {
+  return (
+    <h2 ref={ref} className={className}>
+      {text.split(' ').map((word, wIdx) => (
+        <span key={wIdx} className="inline-block whitespace-nowrap">
+          {Array.from(word).map((char, cIdx) => (
+            <span key={cIdx} className="inline-block overflow-hidden relative leading-normal align-middle">
+              <span className="inline-block translate-y-[100%]">
+                {char}
+              </span>
+            </span>
+          ))}
+          {wIdx < text.split(' ').length - 1 && ' '}
+        </span>
+      ))}
+    </h2>
+  );
+});
+
+SplitText.displayName = 'SplitText';
+
 export default function Introduction() {
   const containerRef = useRef(null);
   const pinRef = useRef(null);
@@ -18,45 +39,6 @@ export default function Introduction() {
 
   useEffect(() => {
     const parent = containerRef.current;
-    
-    // Helper to split text into characters wrapped in overflow-hidden spans
-    const splitTextToSpans = (element) => {
-      if (!element) return;
-      const text = element.textContent;
-      element.innerHTML = '';
-      
-      const words = text.split(' ');
-      words.forEach((word, wordIndex) => {
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'inline-block whitespace-nowrap';
-        
-        const chars = Array.from(word);
-        chars.forEach(char => {
-          const charWrapper = document.createElement('span');
-          charWrapper.className = 'inline-block overflow-hidden relative leading-normal align-middle';
-          
-          const charInner = document.createElement('span');
-          charInner.className = 'inline-block translate-y-[100%]';
-          charInner.textContent = char;
-          
-          charWrapper.appendChild(charInner);
-          wordSpan.appendChild(charWrapper);
-        });
-        
-        element.appendChild(wordSpan);
-        // Add space between words (but not after last word)
-        if (wordIndex < words.length - 1) {
-          element.appendChild(document.createTextNode(' '));
-        }
-      });
-    };
-
-    // Split all our text targets
-    splitTextToSpans(word1Ref.current);
-    splitTextToSpans(word2Ref.current);
-    splitTextToSpans(word3Ref.current);
-    splitTextToSpans(word4Ref.current);
-    splitTextToSpans(word5Ref.current);
 
     // Timeline
     const tl = gsap.timeline({
@@ -178,40 +160,35 @@ export default function Introduction() {
           className="layout-container text-center select-none"
         >
           {/* Main sequence displays */}
-          <h2
+          <SplitText
             ref={word1Ref}
+            text="LUXURY"
             className="text-[9vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.15em] sm:tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none"
-          >
-            LUXURY
-          </h2>
+          />
 
-          <h2
+          <SplitText
             ref={word2Ref}
+            text="INNOVATION"
             className="text-[8vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.1em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] uppercase leading-none"
-          >
-            INNOVATION
-          </h2>
+          />
 
-          <h2
+          <SplitText
             ref={word3Ref}
+            text="PERFORMANCE"
             className="text-[7.5vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.05em] sm:tracking-[0.15em] font-sans text-[#F3F3F3] uppercase leading-none"
-          >
-            PERFORMANCE
-          </h2>
+          />
 
-          <h2
+          <SplitText
             ref={word4Ref}
+            text="ENGINEERING"
             className="text-[7.5vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.05em] sm:tracking-[0.25em] font-sans text-[#F3F3F3] uppercase leading-none"
-          >
-            ENGINEERING
-          </h2>
+          />
 
-          <h2
+          <SplitText
             ref={word5Ref}
+            text="PRECISION"
             className="text-[8.5vw] sm:text-7xl md:text-8xl lg:text-9xl font-light tracking-[0.1em] sm:tracking-[0.3em] font-sans text-[#F3F3F3] uppercase leading-none text-stroke-medium"
-          >
-            PRECISION
-          </h2>
+          />
         </div>
       </div>
     </section>

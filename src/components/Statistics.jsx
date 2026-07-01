@@ -7,9 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Statistics() {
   const containerRef = useRef(null);
   
-  const [accel, setAccel] = useState(0);
-  const [power, setPower] = useState(0);
-  const [range, setRange] = useState(0);
+  const [stats, setStats] = useState({ accel: '0.0', power: 0, range: 0 });
 
   useEffect(() => {
     const parent = containerRef.current;
@@ -32,9 +30,11 @@ export default function Statistics() {
       duration: 3.5,
       ease: 'power3.out',
       onUpdate: () => {
-        setAccel(statsObj.accel.toFixed(1));
-        setPower(Math.floor(statsObj.power));
-        setRange(Math.floor(statsObj.range));
+        setStats({
+          accel: statsObj.accel.toFixed(1),
+          power: Math.floor(statsObj.power),
+          range: Math.floor(statsObj.range)
+        });
       }
     });
 
@@ -75,7 +75,7 @@ export default function Statistics() {
             <div className="stat-border absolute top-0 left-0 w-full h-[1px] bg-bmw-medium/20" />
             <div className="pt-10 flex items-baseline">
               <span className="text-7xl md:text-9xl font-light font-sans text-bmw-light leading-none">
-                {accel}
+                {stats.accel}
               </span>
               <span className="text-xl md:text-2xl font-light text-bmw-light-gray ml-2">
                 S
@@ -91,7 +91,7 @@ export default function Statistics() {
             <div className="stat-border absolute top-0 left-0 w-full h-[1px] bg-bmw-medium/20" />
             <div className="pt-10 flex items-baseline">
               <span className="text-7xl md:text-9xl font-light font-sans text-bmw-light leading-none">
-                {power}
+                {stats.power}
               </span>
               <span className="text-xl md:text-2xl font-light text-bmw-light-gray ml-2">
                 HP
@@ -107,7 +107,7 @@ export default function Statistics() {
             <div className="stat-border absolute top-0 left-0 w-full h-[1px] bg-bmw-medium/20" />
             <div className="pt-10 flex items-baseline">
               <span className="text-7xl md:text-9xl font-light font-sans text-bmw-light leading-none">
-                {range}
+                {stats.range}
               </span>
               <span className="text-xl md:text-2xl font-light text-bmw-light-gray ml-2">
                 KM

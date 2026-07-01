@@ -124,7 +124,7 @@ export default function Contact() {
           {/* Mobile Car Banner (displays only on mobile, top of card) */}
           <div className="block md:hidden w-full h-[220px] overflow-hidden relative">
             <img
-              src="/assets/bmw-m5-rear.png"
+              src="/assets/bmw-m5-rear.webp"
               className="w-full h-full object-cover"
               alt="BMW M5 Rear View"
             />
@@ -216,7 +216,7 @@ export default function Contact() {
             style={{ opacity: 0 }}
           >
             <img
-              src="/assets/bmw-m5-rear.png"
+              src="/assets/bmw-m5-rear.webp"
               className="w-full h-full object-cover object-left"
               alt="BMW M5 Rear View"
             />

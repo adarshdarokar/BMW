@@ -37,7 +37,6 @@ export default function CoreValues() {
   const pinRef = useRef(null);
   const itemsRef = useRef([]);
   const descRef = useRef([]);
-  const mobileCardsRef = useRef([]);
 
   useEffect(() => {
     const parent = containerRef.current;

@@ -4,6 +4,25 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const SplitPhilosophyText = React.forwardRef(({ text, className }, ref) => {
+  return (
+    <h2 ref={ref} className={className}>
+      {text.split(' ').map((word, wIdx) => (
+        <span key={wIdx} className="inline-block whitespace-nowrap">
+          {Array.from(word).map((char, cIdx) => (
+            <span key={cIdx} className="char-span inline-block transition-transform duration-75">
+              {char}
+            </span>
+          ))}
+          {wIdx < text.split(' ').length - 1 && ' '}
+        </span>
+      ))}
+    </h2>
+  );
+});
+
+SplitPhilosophyText.displayName = 'SplitPhilosophyText';
+
 export default function Philosophy() {
   const containerRef = useRef(null);
   const pinRef = useRef(null);
@@ -14,37 +33,6 @@ export default function Philosophy() {
 
   useEffect(() => {
     const parent = containerRef.current;
-    
-    // Character splitter function
-    const splitIntoChars = (element) => {
-      if (!element) return;
-      const text = element.textContent;
-      element.innerHTML = '';
-      
-      const words = text.split(' ');
-      words.forEach((word, wIdx) => {
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'inline-block whitespace-nowrap';
-        
-        const chars = Array.from(word);
-        chars.forEach(char => {
-          const charSpan = document.createElement('span');
-          charSpan.className = 'char-span inline-block transition-transform duration-75';
-          charSpan.textContent = char;
-          wordSpan.appendChild(charSpan);
-        });
-        
-        element.appendChild(wordSpan);
-        if (wIdx < words.length - 1) {
-          element.appendChild(document.createTextNode(' '));
-        }
-      });
-    };
-
-    // Split text
-    splitIntoChars(text1Ref.current);
-    splitIntoChars(text2Ref.current);
-    splitIntoChars(text3Ref.current);
 
     const getChars = (ref) => ref.current?.querySelectorAll('.char-span') || [];
 
@@ -159,26 +147,23 @@ export default function Philosophy() {
 
         <div className="layout-container text-center flex flex-col items-center justify-center select-none relative z-10 w-full">
           
-          <h2
+          <SplitPhilosophyText
             ref={text1Ref}
+            text="DRIVEN BY PERFECTION"
             className="text-[6.5vw] xs:text-[5.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.08em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full py-4 md:py-0"
-          >
-            DRIVEN BY PERFECTION
-          </h2>
+          />
 
-          <h2
+          <SplitPhilosophyText
             ref={text2Ref}
+            text="ENGINEERED FOR EMOTION"
             className="text-[6.5vw] xs:text-[5.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.08em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full py-4 md:py-0"
-          >
-            ENGINEERED FOR EMOTION
-          </h2>
+          />
 
-          <h2
+          <SplitPhilosophyText
             ref={text3Ref}
+            text="DESIGNED FOR THE FUTURE"
             className="text-[6.5vw] xs:text-[5.5vw] sm:text-6xl md:text-8xl font-light tracking-[0.08em] xs:tracking-[0.12em] sm:tracking-[0.2em] font-sans text-[#F3F3F3] leading-tight uppercase w-full text-stroke-medium py-4 md:py-0"
-          >
-            DESIGNED FOR THE FUTURE
-          </h2>
+          />
           
         </div>
       </div>

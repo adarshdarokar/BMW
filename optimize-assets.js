@@ -86,10 +86,10 @@ async function run() {
     console.warn(`Source logo directory not found at "${sourceLogoDir}".`);
   }
 
-  // 2. Transcode heavy UI PNG assets (exterior and interior) to WebP
+  // 2. Transcode heavy UI PNG assets to WebP
   const assetsDir = path.join(publicDir, 'assets');
   if (fs.existsSync(assetsDir)) {
-    const pngs = ['exterior.png', 'interior.png'];
+    const pngs = ['exterior.png', 'interior.png', 'bmw-m5-rear.png'];
     for (const pngName of pngs) {
       const sourcePath = path.join(assetsDir, pngName);
       if (fs.existsSync(sourcePath)) {
